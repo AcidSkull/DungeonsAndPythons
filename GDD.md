@@ -17,3 +17,8 @@ GDScript
 
 # 2. Historia
 
+
+# 3. Styl artystyczny
+Jest to gra 2D z widokiem z góry w grafice typu PixelArt.
+
+# 4. Gameplay
