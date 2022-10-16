@@ -9,11 +9,11 @@ Dungeons and pythons
 ## 1.3 Widok Kamery
 Gracz będzie widoczny w widoku z góry.
 
-## 1.4 Biblioteki
-Pygame
-
-## 1.5 Język
+## 1.4 Język
 Python
+
+## 1.5 Biblioteki
+Pygame
 
 # 2. Historia
 
