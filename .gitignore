@@ -1,1 +1,6 @@
-__pycache__
+.import/
+export.cfg
+export_presets.cfg
+*.translation
+.mono/
+data_*/

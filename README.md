@@ -10,10 +10,10 @@ Dungeons and pythons
 Gracz będzie widoczny w widoku z góry.
 
 ## 1.4 Język
-Python
+GDScript
 
-## 1.5 Biblioteki
-Pygame
+## 1.5 Engine
+Godot 3.5.1
 
 # 2. Historia
 
