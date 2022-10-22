@@ -12,9 +12,3 @@ script = ExtResource( 3 )
 [node name="Room" parent="Rooms" instance=ExtResource( 1 )]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 47, 43 )
-script = null
-
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2( 320, 180 )
-current = true
