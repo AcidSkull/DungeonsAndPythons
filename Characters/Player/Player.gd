@@ -8,11 +8,11 @@ func _process(delta: float) -> void:
 		emit_signal("end_turn")
 	
 	if Input.is_action_just_released("ui_up"):
-		emit_signal("move", "ui_up")
+		move("ui_up")
 	elif Input.is_action_just_released("ui_down"):
-		emit_signal("move", "ui_down")
+		move("ui_down")
 	elif Input.is_action_just_released("ui_left"):
-		emit_signal("move", "ui_left")
+		move("ui_left")
 	elif Input.is_action_just_released("ui_right"):
-		emit_signal("move", "ui_right")
+		move("ui_right")
 
