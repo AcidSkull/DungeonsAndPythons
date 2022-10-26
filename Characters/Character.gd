@@ -26,6 +26,6 @@ func check_if_turn_is_over():
 func move(direction: String):
 	if moves_left > 0:
 		emit_signal("move", direction)
-		--moves_left
+#		moves_left -= 1
 	else:
 		check_if_turn_is_over()
