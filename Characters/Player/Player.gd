@@ -25,14 +25,14 @@ func _process(_delta: float) -> void:
 	# Detecting movment
 	if Input.is_action_just_released("ui_up"):
 		move("ui_up")
-		emit_signal("update_move", moves_left)
 	elif Input.is_action_just_released("ui_down"):
 		move("ui_down")
-		emit_signal("update_move", moves_left)
 	elif Input.is_action_just_released("ui_left"):
 		move("ui_left")
-		emit_signal("update_move", moves_left)
 	elif Input.is_action_just_released("ui_right"):
 		move("ui_right")
-		emit_signal("update_move", moves_left)
+
+func move(direction: String):
+	.move(direction)
+	emit_signal("update_move", moves_left)
 
