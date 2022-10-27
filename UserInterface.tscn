@@ -6,52 +6,52 @@
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource( 2 )
 
-[node name="VBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 5.0
 margin_top = 323.0
 margin_right = 37.0
 margin_bottom = 355.0
 alignment = 2
 
-[node name="Moves" type="TextureRect" parent="VBoxContainer"]
+[node name="Moves" type="TextureRect" parent="HBoxContainer"]
 margin_right = 26.0
 margin_bottom = 32.0
 texture = ExtResource( 1 )
 
-[node name="Label" type="Label" parent="VBoxContainer/Moves"]
+[node name="Label" type="Label" parent="HBoxContainer/Moves"]
 margin_left = 9.0
 margin_top = 8.0
 margin_right = 25.0
 margin_bottom = 24.0
 text = "0"
 
-[node name="Action" type="TextureRect" parent="VBoxContainer"]
+[node name="Action" type="TextureRect" parent="HBoxContainer"]
 margin_left = 30.0
 margin_right = 56.0
 margin_bottom = 32.0
 texture = ExtResource( 1 )
 
-[node name="Label" type="Label" parent="VBoxContainer/Action"]
+[node name="Label" type="Label" parent="HBoxContainer/Action"]
 margin_left = 9.0
 margin_top = 8.0
 margin_right = 25.0
 margin_bottom = 24.0
 text = "0"
 
-[node name="BonusAction" type="TextureRect" parent="VBoxContainer"]
+[node name="BonusAction" type="TextureRect" parent="HBoxContainer"]
 margin_left = 60.0
 margin_right = 86.0
 margin_bottom = 32.0
 texture = ExtResource( 1 )
 
-[node name="Label" type="Label" parent="VBoxContainer/BonusAction"]
+[node name="Label" type="Label" parent="HBoxContainer/BonusAction"]
 margin_left = 9.0
 margin_top = 8.0
 margin_right = 25.0
 margin_bottom = 24.0
 text = "0"
 
-[node name="TextureButton" type="Button" parent="VBoxContainer"]
+[node name="TextureButton" type="Button" parent="HBoxContainer"]
 margin_left = 90.0
 margin_right = 168.0
 margin_bottom = 32.0

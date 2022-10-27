@@ -13,21 +13,9 @@ _global_script_classes=[ {
 "class": "Character",
 "language": "GDScript",
 "path": "res://Characters/Character.gd"
-}, {
-"base": "Node2D",
-"class": "Item",
-"language": "GDScript",
-"path": "res://Items/Item.gd"
-}, {
-"base": "Item",
-"class": "Weapon",
-"language": "GDScript",
-"path": "res://Items/Weapons/Weapon.gd"
 } ]
 _global_script_class_icons={
-"Character": "",
-"Item": "",
-"Weapon": ""
+"Character": ""
 }
 
 [application]
