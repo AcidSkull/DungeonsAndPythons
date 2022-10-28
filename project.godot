@@ -13,9 +13,21 @@ _global_script_classes=[ {
 "class": "Character",
 "language": "GDScript",
 "path": "res://Characters/Character.gd"
+}, {
+"base": "Resource",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://Characters/Player/Equipment.gd"
+}, {
+"base": "Resource",
+"class": "Item",
+"language": "GDScript",
+"path": "res://Item.gd"
 } ]
 _global_script_class_icons={
-"Character": ""
+"Character": "",
+"Inventory": "",
+"Item": ""
 }
 
 [application]
@@ -23,6 +35,10 @@ _global_script_class_icons={
 config/name="DnDRougelike"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Item="*res://Item.gd"
 
 [display]
 
