@@ -19,7 +19,7 @@ var action = true
 var bonus_action = true
 
 func _ready() -> void:
-	var _tmp = connect("move", get_tree().root.get_child(0), "move_character")
+	var _tmp = connect("move", get_tree().root.get_node("Game"), "move_character")
 
 func check_if_turn_is_over() -> void:
 	if moves_left > 0 and action == false and bonus_action == false:

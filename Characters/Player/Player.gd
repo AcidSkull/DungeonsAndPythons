@@ -1,6 +1,7 @@
 extends Character
 
 var direction = Vector2.ZERO
+var inventory = load("res://Characters/Player/Inventory.gd").new()
 
 onready var UI = $UserInterface
 
