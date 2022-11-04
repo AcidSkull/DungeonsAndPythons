@@ -4,6 +4,7 @@ var direction = Vector2.ZERO
 var inventory = load("res://Characters/Player/Inventory.gd").new()
 
 onready var UI = $UserInterface
+onready var InventoryPanel = $InventoryPanel
 
 # Signals to update user interface
 signal update_move(x)
@@ -16,7 +17,9 @@ func _ready() -> void:
 	_tmp = connect("update_action", UI, "_update_action")
 	_tmp = connect("update_bonus_action", UI, "_update_bonus_action")
 	
-	inventory.add_item("Bone", 242)
+	inventory.add_item("Bone", 5)
+	
+	InventoryPanel.hide()
 	
 	# Updating user interface
 	emit_signal("update_move", moves_left)
@@ -24,7 +27,12 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("end_turn"):
 		emit_signal("end_turn")
+	# Open inventory
 	if Input.is_action_just_pressed("inventory"):
+		if InventoryPanel.visible:
+			InventoryPanel.hide()
+		else:
+			InventoryPanel.show()
 		inventory.print_inventory()
 	
 	# Detecting movment

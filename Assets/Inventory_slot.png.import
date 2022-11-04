@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Inventory_slot.png-a67ea9240e5a635ae99659d86dd0b0b1.stex"
+path="res://.import/Inventory_slot.png-c6abf63ec551cf8e6ac3f6582185a92a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Aseprite files/Inventory_slot.png"
-dest_files=[ "res://.import/Inventory_slot.png-a67ea9240e5a635ae99659d86dd0b0b1.stex" ]
+source_file="res://Assets/Inventory_slot.png"
+dest_files=[ "res://.import/Inventory_slot.png-c6abf63ec551cf8e6ac3f6582185a92a.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
