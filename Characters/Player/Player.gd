@@ -16,12 +16,16 @@ func _ready() -> void:
 	_tmp = connect("update_action", UI, "_update_action")
 	_tmp = connect("update_bonus_action", UI, "_update_bonus_action")
 	
+	inventory.add_item("Bone", 3)
+	
 	# Updating user interface
 	emit_signal("update_move", moves_left)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("end_turn"):
 		emit_signal("end_turn")
+	if Input.is_action_just_pressed("inventory"):
+		inventory.print_inventory()
 	
 	# Detecting movment
 	if Input.is_action_just_released("ui_up"):
