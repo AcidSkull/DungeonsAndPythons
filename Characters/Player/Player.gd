@@ -16,7 +16,7 @@ func _ready() -> void:
 	_tmp = connect("update_action", UI, "_update_action")
 	_tmp = connect("update_bonus_action", UI, "_update_bonus_action")
 	
-	inventory.add_item("Bone", 3)
+	inventory.add_item("Bone", 242)
 	
 	# Updating user interface
 	emit_signal("update_move", moves_left)

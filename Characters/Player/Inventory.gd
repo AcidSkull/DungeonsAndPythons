@@ -5,13 +5,15 @@ signal inventory_change
 
 export var _items = Array() setget set_items, get_items
 
+var max_size : int = 15
+
 func print_inventory():
 	if _items.size() == 0:
 		print("Pusto")
 		return
 	
 	for i in range(_items.size()):
-		print(_items[i])
+		print(_items[i].values()[0].name," ", _items[i].quantity)
 
 func get_items():
 	return _items
@@ -23,7 +25,11 @@ func set_items(new_items):
 	_items = new_items
 	emit_signal("inventory_change", self)
 
+func check_if_inventory_is_full():
+	return true if _items.size() >= max_size else false
+
 func add_item(name, quantity):
+	if check_if_inventory_is_full(): return
 	# Checking if quantity is not negative
 	if quantity <= 0:
 		return
@@ -39,6 +45,8 @@ func add_item(name, quantity):
 	# Adding item to existing inventory slot
 	if item.stackable:
 		for i in range(_items.size()):
+			if check_if_inventory_is_full(): return
+			
 			if remaining_quantity == 0:
 				break
 			var inventory_item = _items[i]
@@ -55,6 +63,8 @@ func add_item(name, quantity):
 	
 	# Filling new inventory slots
 	while remaining_quantity > 0:
+		if check_if_inventory_is_full(): return
+		
 		var new_item = {
 			item_reference = item,
 			quantity = min(remaining_quantity, max_stack)
