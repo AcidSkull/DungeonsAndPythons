@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Necklace_slot.png-065ac3b2ca66eb8e91754d81f4c3ec71.stex"
+path="res://.import/Inventory_hbar.png-d46f86225c560b21dd7e9abc3c7957c6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Inventory/Necklace_slot.png"
-dest_files=[ "res://.import/Necklace_slot.png-065ac3b2ca66eb8e91754d81f4c3ec71.stex" ]
+source_file="res://Assets/Inventory/Inventory_hbar.png"
+dest_files=[ "res://.import/Inventory_hbar.png-d46f86225c560b21dd7e9abc3c7957c6.stex" ]
 
 [params]
 

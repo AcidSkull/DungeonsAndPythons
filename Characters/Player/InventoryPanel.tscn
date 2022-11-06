@@ -1,16 +1,27 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Inventory/Inventory_slot.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Inventory_hbar.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Inventory_vbar.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Inventory/Inventory_hbar.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Inventory/Inventory_vbar.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Inventory/Belt_slot.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Inventory/Necklace_slot.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Inventory/Ring_slot.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Inventory/Head_slot.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Inventory/Weapon_slot.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Inventory/Chest_slot.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Inventory/Equipment_hbar.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Inventory/Equipment_vbar.png" type="Texture" id=11]
 
 [node name="InventoryPanel" type="CanvasLayer"]
 
 [node name="Backpack" type="Control" parent="."]
-margin_left = 413.0
-margin_top = 55.0
-margin_right = 453.0
-margin_bottom = 95.0
+margin_left = 352.0
+margin_top = 48.0
+margin_right = 352.0
+margin_bottom = 144.0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Backpack"]
 margin_left = 35.0
@@ -19,9 +30,6 @@ margin_right = 211.0
 margin_bottom = 119.0
 custom_constants/separation = 0
 alignment = 1
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Backpack/VBoxContainer"]
 margin_right = 176.0
@@ -155,4 +163,132 @@ margin_top = 15.0
 margin_right = 37.0
 margin_bottom = 118.0
 texture = ExtResource( 3 )
+flip_h = true
+
+[node name="Equipment" type="Control" parent="."]
+margin_left = 64.0
+margin_top = 60.0
+margin_right = 64.0
+margin_bottom = 60.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Equipment"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Equipment/VBoxContainer"]
+margin_right = 140.0
+margin_bottom = 35.0
+custom_constants/separation = 0
+
+[node name="Necklace" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer"]
+margin_right = 35.0
+margin_bottom = 35.0
+texture = ExtResource( 5 )
+
+[node name="Head" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer"]
+margin_left = 35.0
+margin_right = 70.0
+margin_bottom = 35.0
+texture = ExtResource( 7 )
+
+[node name="WeaponR" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer"]
+margin_left = 70.0
+margin_right = 105.0
+margin_bottom = 35.0
+texture = ExtResource( 8 )
+
+[node name="WeaponL" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer"]
+margin_left = 105.0
+margin_right = 140.0
+margin_bottom = 35.0
+texture = ExtResource( 8 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Equipment/VBoxContainer"]
+margin_top = 35.0
+margin_right = 140.0
+margin_bottom = 70.0
+custom_constants/separation = 0
+
+[node name="Ring" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer2"]
+margin_right = 35.0
+margin_bottom = 35.0
+texture = ExtResource( 6 )
+
+[node name="Chest" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer2"]
+margin_left = 35.0
+margin_right = 70.0
+margin_bottom = 35.0
+texture = ExtResource( 9 )
+
+[node name="WeaponR" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer2"]
+margin_left = 70.0
+margin_right = 105.0
+margin_bottom = 35.0
+texture = ExtResource( 8 )
+
+[node name="WeaponL" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer2"]
+margin_left = 105.0
+margin_right = 140.0
+margin_bottom = 35.0
+texture = ExtResource( 8 )
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Equipment/VBoxContainer"]
+margin_top = 70.0
+margin_right = 140.0
+margin_bottom = 105.0
+custom_constants/separation = 0
+
+[node name="Ring" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer3"]
+margin_right = 35.0
+margin_bottom = 35.0
+texture = ExtResource( 6 )
+
+[node name="Belt" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer3"]
+margin_left = 35.0
+margin_right = 70.0
+margin_bottom = 35.0
+texture = ExtResource( 4 )
+
+[node name="WeaponR" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer3"]
+margin_left = 70.0
+margin_right = 105.0
+margin_bottom = 35.0
+texture = ExtResource( 8 )
+
+[node name="WeponL" type="TextureRect" parent="Equipment/VBoxContainer/HBoxContainer3"]
+margin_left = 105.0
+margin_right = 140.0
+margin_bottom = 35.0
+texture = ExtResource( 8 )
+
+[node name="TopHBar" type="TextureRect" parent="Equipment"]
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 142.0
+margin_bottom = 1.0
+texture = ExtResource( 10 )
+
+[node name="BottomHBar" type="TextureRect" parent="Equipment"]
+margin_left = -2.0
+margin_top = 105.0
+margin_right = 142.0
+margin_bottom = 107.0
+texture = ExtResource( 10 )
+flip_v = true
+
+[node name="RightVBar" type="TextureRect" parent="Equipment"]
+margin_left = 140.0
+margin_right = 142.0
+margin_bottom = 105.0
+texture = ExtResource( 11 )
+
+[node name="LeftVBar" type="TextureRect" parent="Equipment"]
+margin_left = -2.0
+margin_bottom = 105.0
+texture = ExtResource( 11 )
 flip_h = true
