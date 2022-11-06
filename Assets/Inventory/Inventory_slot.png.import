@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Inventory_slot.png-c6abf63ec551cf8e6ac3f6582185a92a.stex"
+path="res://.import/Inventory_slot.png-243153b28976c5bc82bb9aba1a7b4dd2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Inventory_slot.png"
-dest_files=[ "res://.import/Inventory_slot.png-c6abf63ec551cf8e6ac3f6582185a92a.stex" ]
+source_file="res://Assets/Inventory/Inventory_slot.png"
+dest_files=[ "res://.import/Inventory_slot.png-243153b28976c5bc82bb9aba1a7b4dd2.stex" ]
 
 [params]
 

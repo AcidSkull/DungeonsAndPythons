@@ -1,131 +1,140 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Assets/Inventory_slot.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Inventory/Inventory_slot.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Inventory_hbar.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Inventory_vbar.png" type="Texture" id=3]
 
 [node name="InventoryPanel" type="CanvasLayer"]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Backpack" type="Control" parent="."]
+margin_left = 413.0
+margin_top = 55.0
+margin_right = 453.0
+margin_bottom = 95.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Backpack"]
 margin_left = 35.0
 margin_top = 14.0
 margin_right = 211.0
-margin_bottom = 118.0
+margin_bottom = 119.0
 custom_constants/separation = 0
 alignment = 1
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Backpack/VBoxContainer"]
 margin_right = 176.0
 margin_bottom = 35.0
 custom_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer"]
 margin_right = 35.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer"]
 margin_left = 35.0
 margin_right = 70.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer"]
 margin_left = 70.0
 margin_right = 105.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="TextureRect4" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer"]
 margin_left = 105.0
 margin_right = 140.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="TextureRect5" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer"]
 margin_left = 140.0
 margin_right = 175.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Backpack/VBoxContainer"]
 margin_top = 35.0
 margin_right = 176.0
 margin_bottom = 70.0
 custom_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer2"]
 margin_right = 35.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+[node name="TextureRect2" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer2"]
 margin_left = 35.0
 margin_right = 70.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+[node name="TextureRect3" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer2"]
 margin_left = 70.0
 margin_right = 105.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+[node name="TextureRect4" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer2"]
 margin_left = 105.0
 margin_right = 140.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+[node name="TextureRect5" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer2"]
 margin_left = 140.0
 margin_right = 175.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Backpack/VBoxContainer"]
 margin_top = 70.0
 margin_right = 176.0
 margin_bottom = 105.0
 custom_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer3"]
 margin_right = 35.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer3"]
+[node name="TextureRect2" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer3"]
 margin_left = 35.0
 margin_right = 70.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer3"]
+[node name="TextureRect3" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer3"]
 margin_left = 70.0
 margin_right = 105.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/HBoxContainer3"]
+[node name="TextureRect4" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer3"]
 margin_left = 105.0
 margin_right = 140.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/HBoxContainer3"]
+[node name="TextureRect5" type="TextureRect" parent="Backpack/VBoxContainer/HBoxContainer3"]
 margin_left = 140.0
 margin_right = 175.0
 margin_bottom = 35.0
 texture = ExtResource( 1 )
 
-[node name="TopHBar" type="TextureRect" parent="."]
+[node name="TopHBar" type="TextureRect" parent="Backpack"]
 margin_left = 33.0
 margin_top = 12.0
 margin_right = 229.0
 margin_bottom = 16.0
 texture = ExtResource( 2 )
 
-[node name="BottomHBar" type="TextureRect" parent="."]
+[node name="BottomHBar" type="TextureRect" parent="Backpack"]
 margin_left = 33.0
 margin_top = 117.0
 margin_right = 212.0
@@ -133,14 +142,14 @@ margin_bottom = 121.0
 texture = ExtResource( 2 )
 flip_v = true
 
-[node name="RightVBar" type="TextureRect" parent="."]
+[node name="RightVBar" type="TextureRect" parent="Backpack"]
 margin_left = 208.0
 margin_top = 15.0
 margin_right = 212.0
 margin_bottom = 118.0
 texture = ExtResource( 3 )
 
-[node name="LeftVBar" type="TextureRect" parent="."]
+[node name="LeftVBar" type="TextureRect" parent="Backpack"]
 margin_left = 33.0
 margin_top = 15.0
 margin_right = 37.0
