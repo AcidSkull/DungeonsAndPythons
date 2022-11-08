@@ -1,7 +1,7 @@
 extends Resource
 class_name Inventory
 
-signal inventory_change
+signal inventory_change(items)
 
 export var _items = Array() setget set_items, get_items
 
@@ -23,7 +23,7 @@ func get_item(index):
 
 func set_items(new_items):
 	_items = new_items
-	emit_signal("inventory_change", self)
+	emit_signal("inventory_change", _items)
 
 func check_if_inventory_is_full():
 	return true if _items.size() >= max_size else false
@@ -72,4 +72,4 @@ func add_item(name, quantity):
 		_items.append(new_item)
 		remaining_quantity -= new_item.quantity
 	
-	emit_signal("inventory_change", self)
+	emit_signal("inventory_change", _items)

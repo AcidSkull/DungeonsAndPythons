@@ -17,7 +17,10 @@ func _ready() -> void:
 	_tmp = connect("update_action", UI, "_update_action")
 	_tmp = connect("update_bonus_action", UI, "_update_bonus_action")
 	
-	inventory.add_item("Bone", 5)
+	inventory.add_item("Sword", 1)
+	inventory.add_item("Sword", 1)
+	inventory.add_item("Shield", 1)
+	inventory.add_item("Key", 1)
 	
 	InventoryPanel.hide()
 	
@@ -29,11 +32,12 @@ func _process(_delta: float) -> void:
 		emit_signal("end_turn")
 	# Open inventory
 	if Input.is_action_just_pressed("inventory"):
+		inventory.add_item("Bone", 5)
 		if InventoryPanel.visible:
 			InventoryPanel.hide()
 		else:
 			InventoryPanel.show()
-		inventory.print_inventory()
+#		inventory.print_inventory()
 	
 	# Detecting movment
 	if Input.is_action_just_released("ui_up"):
