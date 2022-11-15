@@ -1,21 +1,14 @@
 extends Character
 
-var direction = Vector2.ZERO
 var inventory = load("res://Characters/Player/Inventory.gd").new()
+var velocity = Vector2()
 
 onready var UI = $UserInterface
 onready var InventoryPanel = $InventoryPanel
 
-# Signals to update user interface
-signal update_move(x)
-signal update_action(x)
-signal update_bonus_action(x)
+export (int) var speed = 200
 
 func _ready() -> void:
-	# Connectiong player to user interface
-	var _tmp = connect("update_move", UI, "_update_moves_left")
-	_tmp = connect("update_action", UI, "_update_action")
-	_tmp = connect("update_bonus_action", UI, "_update_bonus_action")
 	
 	inventory.add_item("Sword", 1)
 	inventory.add_item("Sword", 1)
@@ -24,12 +17,8 @@ func _ready() -> void:
 	
 	InventoryPanel.hide()
 	
-	# Updating user interface
-	emit_signal("update_move", moves_left)
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("end_turn"):
-		emit_signal("end_turn")
+func _physics_process(_delta: float) -> void:
 	# Open inventory
 	if Input.is_action_just_pressed("inventory"):
 		inventory.add_item("Bone", 5)
@@ -37,19 +26,21 @@ func _process(_delta: float) -> void:
 			InventoryPanel.hide()
 		else:
 			InventoryPanel.show()
-#		inventory.print_inventory()
 	
-	# Detecting movment
-	if Input.is_action_just_released("ui_up"):
-		move(Vector2.UP)
-	elif Input.is_action_just_released("ui_down"):
-		move(Vector2.DOWN)
-	elif Input.is_action_just_released("ui_left"):
-		move(Vector2.LEFT)
-	elif Input.is_action_just_released("ui_right"):
-		move(Vector2.RIGHT)
+	get_input()
+	velocity = move_and_slide(velocity)
+	
+# Detecting movment
+func get_input() -> void:
+	velocity = Vector2()
+	if Input.is_action_pressed("ui_up"):
+		velocity.y -= 1
+	if Input.is_action_pressed("ui_down"):
+		velocity.y += 1
+	if Input.is_action_pressed("ui_left"):
+		velocity.x -= 1
+	if Input.is_action_pressed("ui_right"):
+		velocity.x += 1
+	velocity = velocity.normalized() * speed
 
-func move(dir: Vector2) -> void:
-	.move(dir)
-	emit_signal("update_move", moves_left)
 
