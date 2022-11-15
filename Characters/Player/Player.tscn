@@ -1,49 +1,28 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Characters/Character.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Knight.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Player.png" type="Texture" id=2]
 [ext_resource path="res://Characters/Player/Player.gd" type="Script" id=3]
 [ext_resource path="res://UserInterface.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Characters/Player/InventoryPanel.tscn" type="PackedScene" id=5]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 32, 34 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 0, 32, 34 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
-region = Rect2( 64, 0, 32, 34 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
-region = Rect2( 96, 0, 32, 34 )
-
-[sub_resource type="SpriteFrames" id=5]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
+[ext_resource path="res://Projectiles/Bullet.tscn" type="PackedScene" id=5]
 
 [node name="Player" instance=ExtResource( 1 )]
 position = Vector2( 16, 8 )
 script = ExtResource( 3 )
 speed = 200
+Bullet = ExtResource( 5 )
 
-[node name="AnimatedSprite" parent="." index="0"]
-frames = SubResource( 5 )
-frame = 2
-speed_scale = 0.6
-playing = true
+[node name="CollisionShape2D" parent="." index="0"]
+visible = true
+position = Vector2( -7.5, 0 )
 
-[node name="Camera2D" type="Camera2D" parent="." index="3"]
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="." index="2"]
 current = true
 
-[node name="UserInterface" parent="." index="4" instance=ExtResource( 4 )]
+[node name="UserInterface" parent="." index="3" instance=ExtResource( 4 )]
 
-[node name="InventoryPanel" parent="." index="5" instance=ExtResource( 5 )]
+[node name="Pointer" type="Position2D" parent="." index="4"]
+position = Vector2( 18, 0 )

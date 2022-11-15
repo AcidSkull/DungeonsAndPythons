@@ -4,9 +4,10 @@ var inventory = load("res://Characters/Player/Inventory.gd").new()
 var velocity = Vector2()
 
 onready var UI = $UserInterface
-onready var InventoryPanel = $InventoryPanel
+onready var Pointer = $Pointer
 
 export (int) var speed = 200
+export (PackedScene) var Bullet = preload("res://Projectiles/Bullet.tscn")
 
 func _ready() -> void:
 	
@@ -15,23 +16,9 @@ func _ready() -> void:
 	inventory.add_item("Shield", 1)
 	inventory.add_item("Key", 1)
 	
-	InventoryPanel.hide()
-	
 
 func _physics_process(_delta: float) -> void:
-	# Open inventory
-	if Input.is_action_just_pressed("inventory"):
-		inventory.add_item("Bone", 5)
-		if InventoryPanel.visible:
-			InventoryPanel.hide()
-		else:
-			InventoryPanel.show()
-	
-	get_input()
-	velocity = move_and_slide(velocity)
-	
-# Detecting movment
-func get_input() -> void:
+	# Movement
 	velocity = Vector2()
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
@@ -41,6 +28,21 @@ func get_input() -> void:
 		velocity.x -= 1
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
+		
 	velocity = velocity.normalized() * speed
-
-
+	velocity = move_and_slide(velocity)
+	
+	look_at(get_global_mouse_position())
+	
+	# Shooting
+	if Input.is_action_pressed("shoot"):
+		shoot()
+	
+func shoot() -> void:
+	# Craeting bullet
+	var bullet_instance = Bullet.instance()
+	add_child(bullet_instance)
+	bullet_instance.global_position = Pointer.global_position
+	
+	var direction_to_mouse = bullet_instance.global_position.direction_to(get_global_mouse_position()).normalized()
+	bullet_instance.set_direction(direction_to_mouse)
