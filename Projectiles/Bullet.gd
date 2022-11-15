@@ -14,5 +14,10 @@ func set_direction(dir: Vector2):
 	self.direction = dir
 	rotation += direction.angle()
 
-func _on_LifeTime_timeout():
+func _on_LifeTime_timeout() -> void:
 	queue_free()
+
+func _on_Bullet_body_entered(body: Node) -> void:
+	if body.has_method("handle_hit"):
+		body.handle_hit()
+		queue_free()

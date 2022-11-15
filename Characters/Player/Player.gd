@@ -49,4 +49,6 @@ func shoot() -> void:
 		emit_signal("fired_bullet", bullet_instance, EndOfGun.global_position, direction)
 		GunCooldown.start()
 		Animation.play("muzzle_flash")
-	
+
+func kill() -> void:
+	pass
