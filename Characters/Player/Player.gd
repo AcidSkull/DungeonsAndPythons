@@ -1,19 +1,18 @@
 extends Character
+class_name Player
 
-signal fired_bullet(bullet, position, direction)
+signal player_fired(bullet, position, direction)
 
 var inventory = load("res://Characters/Player/Inventory.gd").new()
 var velocity = Vector2()
 
 onready var UI = $UserInterface
-onready var EndOfGun = $EndOfGun
-onready var GunDirection = $GunDirection
-onready var GunCooldown = $GunCooldown
+onready var Weapon = $Weapon
 
 export (int) var speed = 200
-export (PackedScene) var Bullet = preload("res://Projectiles/Bullet.tscn")
 
 func _ready() -> void:
+	Weapon.connect("weapon_fired", self, "shoot")
 	
 	inventory.add_item("Sword", 1)
 	inventory.add_item("Sword", 1)
@@ -40,15 +39,10 @@ func _physics_process(_delta: float) -> void:
 	
 	# Shooting
 	if Input.is_action_pressed("shoot"):
-		shoot()
+		Weapon.shoot()
 	
-func shoot() -> void:
-	if GunCooldown.is_stopped():
-		var bullet_instance = Bullet.instance()
-		var direction = (GunDirection.global_position - EndOfGun.global_position).normalized()
-		emit_signal("fired_bullet", bullet_instance, EndOfGun.global_position, direction)
-		GunCooldown.start()
-		Animation.play("muzzle_flash")
+func shoot(bullet: Bullet, position: Vector2, direction: Vector2) -> void:
+	emit_signal("player_fired", bullet, position, direction)
 
 func kill() -> void:
 	pass

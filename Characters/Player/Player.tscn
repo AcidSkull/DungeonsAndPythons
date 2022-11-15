@@ -1,18 +1,17 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Characters/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Player.png" type="Texture" id=2]
 [ext_resource path="res://Characters/Player/Player.gd" type="Script" id=3]
 [ext_resource path="res://Characters/Player/UserInterface.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Projectiles/Bullet.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/MuzzleFlash.png" type="Texture" id=6]
+[ext_resource path="res://Characters/Weapon.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=2]
 resource_name = "muzzle_flash"
 length = 0.05
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("MuzzleFlash:visible")
+tracks/0/path = NodePath("Weapon/MuzzleFlash:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -24,7 +23,7 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("MuzzleFlash:scale")
+tracks/1/path = NodePath("Weapon/MuzzleFlash:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -42,7 +41,6 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource( 3 )
 speed = 200
-Bullet = ExtResource( 5 )
 
 [node name="CollisionShape2D" parent="." index="0"]
 visible = true
@@ -59,17 +57,4 @@ current = true
 
 [node name="UserInterface" parent="." index="4" instance=ExtResource( 4 )]
 
-[node name="EndOfGun" type="Position2D" parent="." index="5"]
-position = Vector2( 18, 0 )
-
-[node name="GunDirection" type="Position2D" parent="." index="6"]
-position = Vector2( 20, 0 )
-
-[node name="GunCooldown" type="Timer" parent="." index="7"]
-wait_time = 0.5
-one_shot = true
-
-[node name="MuzzleFlash" type="Sprite" parent="." index="8"]
-visible = false
-position = Vector2( 17, 0 )
-texture = ExtResource( 6 )
+[node name="Weapon" parent="." index="5" instance=ExtResource( 6 )]
