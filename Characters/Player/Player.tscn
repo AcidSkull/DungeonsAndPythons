@@ -24,5 +24,8 @@ current = true
 
 [node name="UserInterface" parent="." index="3" instance=ExtResource( 4 )]
 
-[node name="Pointer" type="Position2D" parent="." index="4"]
+[node name="EndOfGun" type="Position2D" parent="." index="4"]
 position = Vector2( 18, 0 )
+
+[node name="GunDirection" type="Position2D" parent="." index="5"]
+position = Vector2( 20, 0 )

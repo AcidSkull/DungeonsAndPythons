@@ -1,10 +1,13 @@
 extends Character
 
+signal fired_bullet(bullet, position, direction)
+
 var inventory = load("res://Characters/Player/Inventory.gd").new()
 var velocity = Vector2()
 
 onready var UI = $UserInterface
-onready var Pointer = $Pointer
+onready var EndOfGun = $EndOfGun
+onready var GunDirection = $GunDirection
 
 export (int) var speed = 200
 export (PackedScene) var Bullet = preload("res://Projectiles/Bullet.tscn")
@@ -41,8 +44,8 @@ func _physics_process(_delta: float) -> void:
 func shoot() -> void:
 	# Craeting bullet
 	var bullet_instance = Bullet.instance()
-	add_child(bullet_instance)
-	bullet_instance.global_position = Pointer.global_position
 	
-	var direction_to_mouse = bullet_instance.global_position.direction_to(get_global_mouse_position()).normalized()
-	bullet_instance.set_direction(direction_to_mouse)
+	var direction = (GunDirection.global_position - EndOfGun.global_position).normalized()
+	
+	# Passing bullet to projectiles manager
+	emit_signal("fired_bullet", bullet_instance, EndOfGun.global_position, direction)
