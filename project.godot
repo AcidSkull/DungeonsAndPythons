@@ -19,11 +19,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Characters/Character.gd"
 }, {
-"base": "Item",
-"class": "EquipmentItem",
-"language": "GDScript",
-"path": "res://EquipmentItem.gd"
-}, {
 "base": "Resource",
 "class": "Inventory",
 "language": "GDScript",
@@ -37,7 +32,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Bullet": "",
 "Character": "",
-"EquipmentItem": "",
 "Inventory": "",
 "Item": ""
 }
