@@ -8,6 +8,7 @@ var velocity = Vector2()
 onready var UI = $UserInterface
 onready var EndOfGun = $EndOfGun
 onready var GunDirection = $GunDirection
+onready var GunCooldown = $GunCooldown
 
 export (int) var speed = 200
 export (PackedScene) var Bullet = preload("res://Projectiles/Bullet.tscn")
@@ -42,10 +43,10 @@ func _physics_process(_delta: float) -> void:
 		shoot()
 	
 func shoot() -> void:
-	# Craeting bullet
-	var bullet_instance = Bullet.instance()
+	if GunCooldown.is_stopped():
+		var bullet_instance = Bullet.instance()
+		var direction = (GunDirection.global_position - EndOfGun.global_position).normalized()
+		emit_signal("fired_bullet", bullet_instance, EndOfGun.global_position, direction)
+		GunCooldown.start()
+		Animation.play("muzzle_flash")
 	
-	var direction = (GunDirection.global_position - EndOfGun.global_position).normalized()
-	
-	# Passing bullet to projectiles manager
-	emit_signal("fired_bullet", bullet_instance, EndOfGun.global_position, direction)

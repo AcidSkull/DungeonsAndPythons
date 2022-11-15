@@ -1,6 +1,7 @@
 extends KinematicBody2D
 class_name Character
 
+onready var Animation = $AnimationPlayer
 
 var stats = {
 	"streangth": 0,
