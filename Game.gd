@@ -4,4 +4,4 @@ onready var player: Player = $Player
 onready var projectiles_manager = $ProjectilesManager
 
 func _ready() -> void:
-	var _tmp = player.connect("player_fired", projectiles_manager, "bullet_handling")
+	var _tmp = GlobalSignals.connect("bullet_fired", projectiles_manager, "bullet_handling")

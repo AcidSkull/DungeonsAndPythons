@@ -1,8 +1,6 @@
 extends Character
 class_name Player
 
-signal player_fired(bullet, position, direction)
-
 var inventory = load("res://Characters/Player/Inventory.gd").new()
 var velocity = Vector2()
 
@@ -12,8 +10,6 @@ onready var Weapon = $Weapon
 export (int) var speed = 200
 
 func _ready() -> void:
-	Weapon.connect("weapon_fired", self, "shoot")
-	
 	inventory.add_item("Sword", 1)
 	inventory.add_item("Sword", 1)
 	inventory.add_item("Shield", 1)
@@ -40,9 +36,6 @@ func _physics_process(_delta: float) -> void:
 	# Shooting
 	if Input.is_action_pressed("shoot"):
 		Weapon.shoot()
-	
-func shoot(bullet: Bullet, position: Vector2, direction: Vector2) -> void:
-	emit_signal("player_fired", bullet, position, direction)
 
 func kill() -> void:
 	pass
