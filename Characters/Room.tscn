@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Rooms/Dungeon.tres" type="TileSet" id=1]
 
-[node name="Room" type="TileMap"]
+[node name="Room" type="TileMap" groups=["Environment"]]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1

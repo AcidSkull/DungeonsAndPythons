@@ -21,3 +21,5 @@ func _on_Bullet_body_entered(body: Node) -> void:
 	if body.has_method("handle_hit"):
 		body.handle_hit()
 		queue_free()
+	elif body.is_in_group("Environment"):
+		queue_free()
