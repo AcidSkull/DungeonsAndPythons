@@ -21,8 +21,11 @@ func _process(_delta: float) -> void:
 			pass
 		States.HOSTILE:
 			if player != null and weapon != null:
-				actor.rotation = actor.global_position.direction_to(player.global_position).angle()
-				weapon.shoot()
+				var angle = actor.global_position.direction_to(player.global_position).angle()
+				actor.rotation = lerp(actor.rotation, angle, 0.1)
+				
+				if abs(actor.rotation - angle) < 0.1:
+					weapon.shoot()
 
 func initialize(character: Enemy, new_weapon: Weapon) -> void:
 	actor = character
