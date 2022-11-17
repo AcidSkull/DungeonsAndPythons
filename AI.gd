@@ -12,7 +12,7 @@ enum States{
 
 var state: int = States.IDLE setget set_state
 var player: Player = null
-var weapon: Weapon = null
+onready var weapon: Weapon = null
 var actor: Enemy = null
 
 func _process(_delta: float) -> void:
@@ -30,7 +30,7 @@ func _process(_delta: float) -> void:
 func initialize(character: Enemy, new_weapon: Weapon) -> void:
 	actor = character
 	weapon = new_weapon
-	
+	var _tmp = weapon.connect("out_of_ammo", self, "_on_ammo_run_out")
 
 func set_state(new_state: int) -> void:
 	if new_state == state: return
@@ -42,3 +42,6 @@ func _on_DetectionZone_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
 		set_state(States.HOSTILE)
 		player = body
+
+func _on_ammo_run_out() -> void:
+	weapon.reload()

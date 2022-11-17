@@ -36,6 +36,9 @@ func _physics_process(_delta: float) -> void:
 	# Shooting
 	if Input.is_action_pressed("shoot"):
 		Weapon.shoot()
+	# Reloading
+	if Input.is_action_pressed("reload"):
+		Weapon.reload()
 
 func kill() -> void:
 	pass
