@@ -26,3 +26,4 @@ current = true
 [node name="UserInterface" parent="." index="4" instance=ExtResource( 4 )]
 
 [node name="Weapon" parent="." index="5" instance=ExtResource( 6 )]
+position = Vector2( 20, 22 )
