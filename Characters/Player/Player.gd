@@ -32,7 +32,8 @@ func _physics_process(_delta: float) -> void:
 	velocity = move_and_slide(velocity)
 	
 	look_at(get_global_mouse_position())
-	
+	rotation -= 0.2
+#	
 	# Shooting
 	if Input.is_action_pressed("shoot"):
 		Weapon.shoot()

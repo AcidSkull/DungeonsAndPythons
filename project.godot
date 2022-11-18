@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Weapon",
 "language": "GDScript",
-"path": "res://Characters/Weapon.gd"
+"path": "res://Weapons/Weapon.gd"
 } ]
 _global_script_class_icons={
 "AI": "",

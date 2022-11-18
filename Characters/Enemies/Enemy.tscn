@@ -4,12 +4,13 @@
 [ext_resource path="res://Assets/Enemy.png" type="Texture" id=2]
 [ext_resource path="res://Characters/Enemies/Enemy.gd" type="Script" id=3]
 [ext_resource path="res://AI.gd" type="Script" id=4]
-[ext_resource path="res://Characters/Weapon.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Weapons/Weapon.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 75.0067
 
 [node name="Enemy" groups=["enemy"] instance=ExtResource( 1 )]
+scale = Vector2( 2, 2 )
 collision_layer = 2
 collision_mask = 7
 script = ExtResource( 3 )
@@ -29,5 +30,6 @@ script = ExtResource( 4 )
 shape = SubResource( 1 )
 
 [node name="Weapon" parent="." index="4" instance=ExtResource( 5 )]
+visible = false
 
 [connection signal="body_entered" from="AI/DetectionZone" to="AI" method="_on_DetectionZone_body_entered"]
