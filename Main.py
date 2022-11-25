@@ -1,13 +1,13 @@
 from Engine import Engine
 from Map import Map
 from Entity import Entity
-from InputHandler import InputHandler
+from Player import Player
 import pygame
 
 class Main():
 
-    def __init__(self, width: int, height: int):
-        self.engine = Engine(width=width, height=height)
+    def __init__(self, width: int, height: int, player: Player):
+        self.engine = Engine(width=width, height=height, entities={player})
 
     def run(self):
         self.engine.start()
@@ -15,5 +15,7 @@ class Main():
 
 
 if __name__ == '__main__':
-    m = Main(800,600)
+    p = Player(100, 100, "Assets\\Knight.png")
+
+    m = Main(800, 600, p)
     m.run()
