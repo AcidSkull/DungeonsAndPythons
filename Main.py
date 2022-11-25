@@ -7,7 +7,7 @@ import pygame
 class Main():
 
     def __init__(self, width: int, height: int, player: Player):
-        self.engine = Engine(width=width, height=height, entities={player})
+        self.engine = Engine(width=width, height=height, entities=[player])
 
     def run(self):
         self.engine.start()
