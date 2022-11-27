@@ -1,7 +1,7 @@
 
 
 class Tile:
-    def __init__(self, blocked: bool, texture):
+    def __init__(self, blocked: bool=True, texture=""):
         self.blocked = blocked
         self.texture = texture
     

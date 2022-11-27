@@ -40,6 +40,8 @@ class Engine:
 
     
     def start(self):
+        self.map.generate_floor(5, 10, 15, self.width, self.height, self.player)
+
         while self.running:
             self.handle_input()
             self.screen.fill([255,255,255])
