@@ -1,5 +1,6 @@
 from Entity import Entity
 from Map import Map
+from Player import Player
 from typing import Set, Iterable, Any
 
 import pygame
@@ -10,6 +11,7 @@ class Engine:
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode([self.width, self.height])
+        # self.screen = pygame.transform.rotozoom(self.screen, 0 , 2)
         self.entities = entities
         self.running = True
         self.map = Map(width, height)
@@ -30,17 +32,30 @@ class Engine:
             if keys[pygame.K_ESCAPE]:
                 self.running = False
             if keys[pygame.K_RIGHT]:
-                self.player.move(64, 0)
+                self.move_camera(-64, 0)
+                # self.player.move(64, 0)
             elif keys[pygame.K_LEFT]:
-                self.player.move(-64, 0)
+                self.move_camera(64, 0)
+                # self.player.move(-64, 0)
             elif keys[pygame.K_UP]:
-                self.player.move(0, -64)
+                self.move_camera(0, 64)
+                # self.player.move(0, -64)
             elif keys[pygame.K_DOWN]:
-                self.player.move(0, 64)
+                self.move_camera(0, -64)
+                # self.player.move(0, 64)
 
-    
+    def move_camera(self, dx: int, dy: int):
+        for row in self.map.tiles:
+            for tile in row:
+                if tile is not None:
+                    tile.x += dx
+                    tile.y += dy
+
     def start(self):
-        self.map.generate_floor(5, 10, 15, self.width, self.height, self.player)
+        self.map.generate_floor(10, 10, 15, 150, 150, self.player)
+
+        self.player.x = self.width // 2
+        self.player.y = self.height //2
 
         while self.running:
             self.handle_input()

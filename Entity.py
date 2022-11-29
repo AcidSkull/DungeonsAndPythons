@@ -9,6 +9,7 @@ class Entity:
     def move(self, dx: int, dy: int):
         self.x += dx
         self.y += dy
+        print(self.x, self.y)
 
     def get_coordinates(self):
         return (self.x, self.y)

@@ -5,8 +5,8 @@ import pygame, random
 
 class Map:
     def __init__(self, width: int, height: int):
-        self.width = 1000
-        self.height = 1000
+        self.width = width
+        self.height = height
         self.tiles = self.init_tiles()
         self.tile_png = self.init_images()
     
@@ -30,7 +30,7 @@ class Map:
                 # print(self.tiles[x][y])
                 if self.tiles[x][y] is not None:
                 # print(self.tiles[x][y].get_texture())
-                    screen.blit(self.tile_png["Floor"], (x*64, y*64))
+                    screen.blit(self.tile_png["Floor"], (self.tiles[x][y].x, self.tiles[x][y].y))
                 # screen.blit(self.tiles[x][y].get_texture(), (x * 64, y * 64))
     
     def generate_floor(self, number_of_rooms: int, min_room_size: int, max_room_size: int, map_width: int, map_height: int, player: Player):
@@ -74,16 +74,16 @@ class Map:
     def generate_room(self, room: Room):
         for x in range(room.DL_TOP + 1, room.DR_TOP):
             for y in range(room.UL_TOP + 1, room.UR_TOP):
-                self.tiles[x][y] = Tile()
+                self.tiles[x][y] = Tile(x*64, y*64)
     
     def generate_horizontal_tunnel(self, x1: int, x2: int, y: int):
         min_x = min(x1, x2)
         max_x = max(x1, x2)
         for x in range(min_x, max_x + 1):
-            self.tiles[x][y] = Tile()
+            self.tiles[x][y] = Tile(x*64, y*64)
 
     def generate_vertical_tunnel(self, y1: int, y2: int, x: int):
         min_y = min(y1, y2)
         max_y = max(y1, y2)
         for y in range(min_y, max_y + 1):
-            self.tiles[x][y] = Tile()
+            self.tiles[x][y] = Tile(x*64, y*64)

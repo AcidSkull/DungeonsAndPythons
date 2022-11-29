@@ -17,5 +17,5 @@ class Main():
 if __name__ == '__main__':
     p = Player(0, 0, "Assets\\Knight.png")
 
-    m = Main(800, 600, p)
+    m = Main(1920, 1080, p)
     m.run()
