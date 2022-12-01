@@ -1,6 +1,6 @@
 import pygame
 
-class Entity:
+class Entity():
     def __init__(self, x: int, y: int, sprite: str):
         self.x = x
         self.y = y

@@ -10,13 +10,13 @@ class Engine:
         self.height = height
         self.screen = pygame.display.set_mode([self.width, self.height])
         self.running = True
-        self.map = Map(width, height)
+        self.map = Map(800, 800)
         self.player = Player(self.width // 2, self.height //2)
         self.entities = [self.player]
     
     def render(self):
         self.map.render(self.screen)
-        print(self.entities)
+
         for entity in self.entities:
             self.screen.blit(entity.sprite, (entity.x, entity.y))
     
@@ -43,7 +43,6 @@ class Engine:
                 # self.player.move(0, 64)
 
     def move_camera(self, dx: int, dy: int):
-        print(self.player.x, self.player.y)
         for row in self.map.tiles:
             for tile in row:
                 if tile is not None:
@@ -51,7 +50,7 @@ class Engine:
                     tile.y += dy
 
     def start(self):
-        self.map.generate_floor(10, 10, 15, 150, 150, self.player)
+        self.map.generate_floor(15, 10, 20, 120, 120, self.player)
 
         while self.running:
             self.handle_input()

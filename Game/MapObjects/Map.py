@@ -25,13 +25,10 @@ class Map:
         return 0 <= x < self.width and 0 <= y <self.height
     
     def render(self, screen: pygame.Surface):
-        for x in range(0, self.width):
-            for y in range(0, self.height):
-                # print(self.tiles[x][y])
-                if self.tiles[x][y] is not None:
-                # print(self.tiles[x][y].get_texture())
-                    screen.blit(self.tile_png["Floor"], (self.tiles[x][y].x, self.tiles[x][y].y))
-                # screen.blit(self.tiles[x][y].get_texture(), (x * 64, y * 64))
+        for row in self.tiles:
+            for tile in row:
+                if tile is not None:
+                    screen.blit(self.tile_png["Floor"], (tile.x, tile.y))
     
     def generate_floor(self, number_of_rooms: int, min_room_size: int, max_room_size: int, map_width: int, map_height: int, player: Player):
 
@@ -56,9 +53,10 @@ class Map:
 
                 center = new_room.get_center()
                 if len(rooms) == 0:
+                    pass
                     # Set player in first room
-                    player.x = center[0]
-                    player.y = center[1]
+                    # player.x = center[0]
+                    # player.y = center[1]
                 else:
                     previous_center = rooms[-1].get_center()
 
