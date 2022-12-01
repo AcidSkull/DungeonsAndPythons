@@ -9,14 +9,14 @@ class Engine:
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode([self.width, self.height])
-        self.entities = list()
         self.running = True
         self.map = Map(width, height)
-        self.player = Player(self.width // 2, self.height //2, "Assets\\Knight.png")
+        self.player = Player(self.width // 2, self.height //2)
+        self.entities = [self.player]
     
     def render(self):
         self.map.render(self.screen)
-
+        print(self.entities)
         for entity in self.entities:
             self.screen.blit(entity.sprite, (entity.x, entity.y))
     
@@ -28,6 +28,7 @@ class Engine:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
                 self.running = False
+
             if keys[pygame.K_RIGHT]:
                 self.move_camera(-64, 0)
                 # self.player.move(64, 0)
