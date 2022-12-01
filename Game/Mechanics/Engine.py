@@ -1,16 +1,17 @@
 from Entities.Player import Player
 from MapObjects.Map import Map
+from settings import *
 
 import pygame
 
 class Engine:
-    def __init__(self, width, height):
+    def __init__(self):
         pygame.init()
-        self.width = width
-        self.height = height
+        self.width = WIDTH
+        self.height = HEIGHT
         self.screen = pygame.display.set_mode([self.width, self.height])
         self.running = True
-        self.map = Map(800, 800)
+        self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.player = Player(self.width // 2, self.height //2)
         self.entities = [self.player]
     
