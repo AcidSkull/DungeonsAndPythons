@@ -12,7 +12,7 @@ class Engine:
         self.screen = pygame.display.set_mode([self.width, self.height])
         self.running = True
         self.map = Map(MAP_WIDTH, MAP_HEIGHT)
-        self.player = Player(self.width // 2, self.height //2)
+        self.player = Player(self.width // 2 , self.height //2 - 32)
         self.entities = [self.player]
     
     def render(self):
@@ -31,27 +31,27 @@ class Engine:
                 self.running = False
 
             if keys[pygame.K_RIGHT]:
-                self.move_camera(-64, 0)
                 # self.player.move(64, 0)
+                self.move_camera(-64, 0)
             elif keys[pygame.K_LEFT]:
-                self.move_camera(64, 0)
                 # self.player.move(-64, 0)
+                self.move_camera(64, 0)
             elif keys[pygame.K_UP]:
-                self.move_camera(0, 64)
                 # self.player.move(0, -64)
+                self.move_camera(0, 64)
             elif keys[pygame.K_DOWN]:
-                self.move_camera(0, -64)
                 # self.player.move(0, 64)
+                self.move_camera(0, -64)
 
     def move_camera(self, dx: int, dy: int):
         for row in self.map.tiles:
             for tile in row:
                 if tile is not None:
-                    tile.x += dx
-                    tile.y += dy
+                    tile.x += dx*4
+                    tile.y += dy*4
 
     def start(self):
-        self.map.generate_floor(15, 10, 20, 120, 120, self.player)
+        self.map.generate_floor(15, 6, 12, self.player)
 
         while self.running:
             self.handle_input()
