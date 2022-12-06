@@ -1,4 +1,6 @@
 from Entities.Entity import Entity
+from MapObjects.Map import Map
+from settings import *
 
 class Action():
     def perform(self, entity: Entity):
@@ -10,8 +12,11 @@ class Movement(Action):
         self.dx = dx
         self.dy = dy
     
-    def perform(self, entity: Entity):
+    def perform(self, entity: Entity, map: Map):
         dest_x = entity.x + self.dx
         dest_y = entity.y + self.dy
+
+        if not map.can_walk(dest_x // TILESIZE, dest_y // TILESIZE):
+            return
 
         entity.move(self.dx, self.dy)

@@ -1,5 +1,6 @@
 from Entities.Player import Player
 from MapObjects.Map import Map
+from Mechanics.Action import *
 from settings import *
 
 import pygame
@@ -27,20 +28,25 @@ class Engine:
                 self.running = False
             
             keys = pygame.key.get_pressed()
+
             if keys[pygame.K_ESCAPE]:
                 self.running = False
 
             if keys[pygame.K_RIGHT]:
-                self.player.move(TILESIZE, 0)
+                return Movement(TILESIZE, 0)
+                # self.player.move(TILESIZE, 0)
                 # self.move_camera(-64, 0)
             elif keys[pygame.K_LEFT]:
-                self.player.move(-TILESIZE, 0)
+                return Movement(-TILESIZE, 0)
+                # self.player.move(-TILESIZE, 0)
                 # self.move_camera(64, 0)
             elif keys[pygame.K_UP]:
-                self.player.move(0, -TILESIZE)
+                return Movement(0, -TILESIZE)
+                # self.player.move(0, -TILESIZE)
                 # self.move_camera(0, 64)
             elif keys[pygame.K_DOWN]:
-                self.player.move(0, TILESIZE)
+                return Movement(0, TILESIZE)
+                # self.player.move(0, TILESIZE)
                 # self.move_camera(0, -64)
 
     def move_camera(self, dx: int, dy: int):
@@ -54,7 +60,10 @@ class Engine:
         self.map.generate_floor(25, 3, 6, self.player)
 
         while self.running:
-            self.handle_input()
+            action = self.handle_input()
+            if isinstance(action, Movement):
+                action.perform(self.player, self.map)
+
             self.screen.fill([255,255,255])
             self.render()
 

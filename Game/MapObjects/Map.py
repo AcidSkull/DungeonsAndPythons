@@ -23,8 +23,8 @@ class Map:
         }
         return tile_png
     
-    def in_bound(self, x: int, y: int) -> bool:
-        return 0 <= x < self.width and 0 <= y <self.height
+    def can_walk(self, x: int, y: int) -> bool:
+        return not self.tiles[x][y].blocked
     
     def render(self, screen: pygame.Surface):
         for row in self.tiles:
