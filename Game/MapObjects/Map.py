@@ -55,7 +55,9 @@ class Map:
 
                 center = new_room.get_center()
                 if len(rooms) == 0:
-                    pass
+                    print(center)
+                    player.x = center[0]*TILESIZE
+                    player.y = center[1]*TILESIZE
                 else:
                     previous_center = rooms[-1].get_center()
 
