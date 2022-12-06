@@ -18,6 +18,7 @@ class Engine:
     
     def render(self):
         self.map.render(self.screen)
+        self.map.update_fov(self.player, 5)
 
         for entity in self.entities:
             self.screen.blit(entity.sprite, (entity.x, entity.y))

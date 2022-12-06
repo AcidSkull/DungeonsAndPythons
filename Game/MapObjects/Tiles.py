@@ -5,6 +5,8 @@ class Tile:
         self.x = x
         self.y = y
         self.blocked = blocked
+        self.visible = False
+        self.explored = False
 
 class Floor(Tile):
     def __init__(self, x: int, y: int):

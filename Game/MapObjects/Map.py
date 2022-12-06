@@ -9,28 +9,53 @@ class Map:
     def __init__(self, width: int, height: int):
         self.width = width
         self.height = height
-        self.tiles = self.init_tiles()
-        self.tile_png = self.init_images()
-    
-    def init_tiles(self):
-        tiles = [[Wall(x*TILESIZE, y*TILESIZE) for y in range(self.height)] for x in range(self.width)]
-        return tiles
-    
-    def init_images(self):
-        tile_png = {
+        self.tiles = list()
+        self.visible = list()
+        self.explored = list()
+        self.init_tiles()
+
+        self.tile_png = {
             "Floor" : pygame.image.load(".\\Assets\\Tiles\\Tile.png"),
             "Wall" : pygame.image.load(".\\Assets\\Tiles\\Wall.png"),
+            "Floor_dark": pygame.image.load(".\\Assets\\Tiles\\Tile_dark.png"),
         }
-        return tile_png
+    
+    def init_tiles(self):
+        for x in range(self.width):
+            self.tiles.append(list())
+            self.visible.append(list())
+            self.explored.append(list())
+
+            for y in range(self.height):
+                self.tiles[x].append(Wall(x*TILESIZE, y*TILESIZE))
+                self.visible[x].append(False)
+                self.explored[x].append(False)
     
     def can_walk(self, x: int, y: int) -> bool:
         return not self.tiles[x][y].blocked
+    
+    def update_fov(self, player: Player, radius: int):
+        min_x = max(player.x // TILESIZE - radius, 0)
+        max_x = min(player.x // TILESIZE + radius, MAP_WIDTH)
+        min_y = max(player.y // TILESIZE - radius, 0)
+        max_y = min(player.y // TILESIZE + radius, MAP_HEIGHT)
+        
+        print(min_x, max_x, min_y, max_y)
+
+        for x in range(MAP_WIDTH):
+            for y in range(MAP_HEIGHT):
+                self.tiles[x][y].visible = True
     
     def render(self, screen: pygame.Surface):
         for row in self.tiles:
             for tile in row:
                 if tile is not None:
-                    screen.blit(self.tile_png[tile.__class__.__name__], (tile.x, tile.y))
+                    name = ""
+                    if not tile.visible:
+                        name = "Wall"
+                    else:
+                        name = tile.__class__.__name__
+                    screen.blit(self.tile_png[name], (tile.x, tile.y))
     
     def generate_floor(self, max_rooms: int, min_room_size: int, max_room_size: int, player: Player):
 
@@ -55,7 +80,6 @@ class Map:
 
                 center = new_room.get_center()
                 if len(rooms) == 0:
-                    print(center)
                     player.x = center[0]*TILESIZE
                     player.y = center[1]*TILESIZE
                 else:
