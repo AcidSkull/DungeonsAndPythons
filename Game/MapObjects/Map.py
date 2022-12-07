@@ -1,7 +1,6 @@
 from MapObjects.Tiles import *
 from MapObjects.Room import Room
 from Entities.Player import Player
-from typing import Tuple
 from settings import *
 import pygame, random
 
@@ -35,27 +34,25 @@ class Map:
         return not self.tiles[x][y].blocked
     
     def update_fov(self, player: Player, radius: int):
-        min_x = max(player.x // TILESIZE - radius, 0)
-        max_x = min(player.x // TILESIZE + radius, MAP_WIDTH)
-        min_y = max(player.y // TILESIZE - radius, 0)
-        max_y = min(player.y // TILESIZE + radius, MAP_HEIGHT)
+        min_x = player.x // TILESIZE - radius
+        max_x = player.x // TILESIZE + radius
+        min_y = player.y // TILESIZE - radius
+        max_y = player.y // TILESIZE + radius
         
-        print(min_x, max_x, min_y, max_y)
-
         for x in range(MAP_WIDTH):
             for y in range(MAP_HEIGHT):
+                    self.tiles[x][y].visible = False
+
+        for x in range(min_x, max_x):
+            for y in range(min_y, max_y):
                 self.tiles[x][y].visible = True
+                self.tiles[x][y].explored = True
     
     def render(self, screen: pygame.Surface):
         for row in self.tiles:
             for tile in row:
                 if tile is not None:
-                    name = ""
-                    if not tile.visible:
-                        name = "Wall"
-                    else:
-                        name = tile.__class__.__name__
-                    screen.blit(self.tile_png[name], (tile.x, tile.y))
+                    screen.blit(self. tile_png[tile.get_texture()], (tile.x, tile.y))
     
     def generate_floor(self, max_rooms: int, min_room_size: int, max_room_size: int, player: Player):
 

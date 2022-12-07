@@ -17,8 +17,8 @@ class Engine:
         self.entities = [self.player]
     
     def render(self):
+        self.map.update_fov(self.player, 3)
         self.map.render(self.screen)
-        self.map.update_fov(self.player, 5)
 
         for entity in self.entities:
             self.screen.blit(entity.sprite, (entity.x, entity.y))
@@ -35,20 +35,12 @@ class Engine:
 
             if keys[pygame.K_RIGHT]:
                 return Movement(TILESIZE, 0)
-                # self.player.move(TILESIZE, 0)
-                # self.move_camera(-64, 0)
             elif keys[pygame.K_LEFT]:
                 return Movement(-TILESIZE, 0)
-                # self.player.move(-TILESIZE, 0)
-                # self.move_camera(64, 0)
             elif keys[pygame.K_UP]:
                 return Movement(0, -TILESIZE)
-                # self.player.move(0, -TILESIZE)
-                # self.move_camera(0, 64)
             elif keys[pygame.K_DOWN]:
                 return Movement(0, TILESIZE)
-                # self.player.move(0, TILESIZE)
-                # self.move_camera(0, -64)
 
     def move_camera(self, dx: int, dy: int):
         for row in self.map.tiles:
