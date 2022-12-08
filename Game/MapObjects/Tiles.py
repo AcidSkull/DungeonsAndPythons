@@ -19,7 +19,7 @@ class Floor(Tile):
         if self.visible:
             return "Floor"
         elif self.explored:
-            return "Floor_dark"
+            return "Floor_explored"
         else:
             return "Wall"
 

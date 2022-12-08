@@ -50,7 +50,7 @@ class Engine:
                     tile.y += dy
 
     def start(self):
-        self.map.generate_floor(25, 3, 6, self.player)
+        self.map.generate_floor(20, 3, 6, self.player)
 
         while self.running:
             action = self.handle_input()

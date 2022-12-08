@@ -1,6 +1,7 @@
 from MapObjects.Tiles import *
 from MapObjects.Room import Room
 from Entities.Player import Player
+from math import ceil
 from settings import *
 import pygame, random
 
@@ -8,27 +9,16 @@ class Map:
     def __init__(self, width: int, height: int):
         self.width = width
         self.height = height
-        self.tiles = list()
-        self.visible = list()
-        self.explored = list()
-        self.init_tiles()
+        self.tiles = self.clear_map()
 
         self.tile_png = {
-            "Floor" : pygame.image.load(".\\Assets\\Tiles\\Tile.png"),
+            "Floor" : pygame.image.load(".\\Assets\\Tiles\\Floor.png"),
+            "Floor_explored": pygame.image.load(".\\Assets\\Tiles\\Floor_explored.png"),
             "Wall" : pygame.image.load(".\\Assets\\Tiles\\Wall.png"),
-            "Floor_dark": pygame.image.load(".\\Assets\\Tiles\\Tile_dark.png"),
         }
     
-    def init_tiles(self):
-        for x in range(self.width):
-            self.tiles.append(list())
-            self.visible.append(list())
-            self.explored.append(list())
-
-            for y in range(self.height):
-                self.tiles[x].append(Wall(x*TILESIZE, y*TILESIZE))
-                self.visible[x].append(False)
-                self.explored[x].append(False)
+    def clear_map(self) -> list():
+        return [[Wall(x * TILESIZE, y * TILESIZE) for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
     
     def can_walk(self, x: int, y: int) -> bool:
         return not self.tiles[x][y].blocked
@@ -47,6 +37,12 @@ class Map:
             for y in range(min_y, max_y):
                 self.tiles[x][y].visible = True
                 self.tiles[x][y].explored = True
+
+        # wall = [99999,99999]
+
+        # for x in range(player.x, min_x, -1):
+        #     for y in range(player.y, max_y):
+        #         pass
     
     def render(self, screen: pygame.Surface):
         for row in self.tiles:
