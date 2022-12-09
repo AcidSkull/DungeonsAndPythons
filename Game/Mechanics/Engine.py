@@ -8,6 +8,7 @@ import pygame
 class Engine:
     def __init__(self):
         pygame.init()
+        pygame.display.set_caption("Dungeons&Pythons")
         self.width = WIDTH
         self.height = HEIGHT
         self.screen = pygame.display.set_mode([self.width, self.height], pygame.FULLSCREEN)

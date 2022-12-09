@@ -1,6 +1,6 @@
 # 1. Dane Techniczne
 ## 1.1 Nazwa Gry
-
+Dungeons and pythons
 
 ## 1.2 Platformy
 - Windows 
@@ -10,10 +10,10 @@
 Gracz będzie widoczny w widoku z góry.
 
 ## 1.4 Język
-GDScript
+Python 3.10.1
 
-## 1.5 Silnik
-Godot 3.5.1
+## 1.5 Biblioteki
+Pygame 2.1.2
 
 # 2. Historia
 
