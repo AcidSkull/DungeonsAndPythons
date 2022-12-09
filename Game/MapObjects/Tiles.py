@@ -1,9 +1,9 @@
-
+from settings import *
 
 class Tile:
-    def __init__(self, x: int, y: int, blocked: bool=True):
-        self.x = x
-        self.y = y
+    def __init__(self, x: int, y: int, blocked: bool):
+        self.x = x * TILESIZE
+        self.y = y * TILESIZE
         self.blocked = blocked
         self.visible = False
         self.explored = False

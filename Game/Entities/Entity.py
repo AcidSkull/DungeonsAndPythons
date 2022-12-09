@@ -1,3 +1,4 @@
+from settings import *
 import pygame
 
 class Entity():
@@ -12,3 +13,6 @@ class Entity():
 
     def get_coordinates(self):
         return (self.x, self.y)
+    
+    def get_tile_position_x(self): return self.x // TILESIZE
+    def get_tile_position_y(self): return self.y // TILESIZE
