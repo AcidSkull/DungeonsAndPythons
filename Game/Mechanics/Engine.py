@@ -13,16 +13,13 @@ class Engine:
         self.height = HEIGHT
         self.screen = pygame.display.set_mode([self.width, self.height], pygame.FULLSCREEN)
         self.running = True
-        self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.player = Player(self.width // 2 , self.height //2)
         self.entities = [self.player]
+        self.map = Map(MAP_WIDTH, MAP_HEIGHT, self.entities)
     
     def render(self):
         self.map.update_fov(self.player, 3)
         self.map.render(self.screen)
-
-        for entity in self.entities:
-            self.screen.blit(entity.sprite, (entity.x, entity.y))
     
     def handle_input(self):
         for event in pygame.event.get():
@@ -51,7 +48,7 @@ class Engine:
                     tile.y += dy
 
     def start(self):
-        self.map.generate_floor(20, 3, 6, self.player)
+        self.map.generate_floor(20, 3, 6, 2, self.player)
 
         while self.running:
             action = self.handle_input()

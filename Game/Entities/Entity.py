@@ -2,10 +2,12 @@ from settings import *
 import pygame
 
 class Entity():
-    def __init__(self, x: int, y: int, sprite: str):
+    def __init__(self, x: int, y: int, name: str):
         self.x = x
         self.y = y
-        self.sprite = pygame.image.load(sprite)
+        self.name = name
+    
+    def get_sprite(self): return self.name
     
     def move(self, dx: int, dy: int):
         self.x += dx

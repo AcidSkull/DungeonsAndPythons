@@ -1,19 +1,27 @@
 from MapObjects.Tiles import *
 from MapObjects.Room import Room
 from Entities.Player import Player
+from Entities.Slime import Slime
 from settings import *
 import pygame, random
 
 class Map:
-    def __init__(self, width: int, height: int):
+    def __init__(self, width: int, height: int, entities: list):
         self.width = width
         self.height = height
+        self.entities = entities
         self.tiles = self.clear_map()
+        self.visible = [[False for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
 
         self.tile_png = {
             "Floor" : pygame.image.load(".\\Assets\\Tiles\\Floor.png"),
             "Floor_explored": pygame.image.load(".\\Assets\\Tiles\\Floor_explored.png"),
             "Wall" : pygame.image.load(".\\Assets\\Tiles\\Wall.png"),
+        }
+
+        self.entity_sprites = {
+            "Player" : pygame.image.load(".\\Assets\\Entities\\Knight.png"),
+            "Slime" : pygame.image.load(".\\Assets\\Entities\\Slime.png"),
         }
     
     def clear_map(self) -> list():
@@ -87,9 +95,14 @@ class Map:
         for row in self.tiles:
             for tile in row:
                 if tile is not None:
-                    screen.blit(self. tile_png[tile.get_texture()], (tile.x, tile.y))
+                    screen.blit(self.tile_png[tile.get_texture()], (tile.x, tile.y))
+        
+        for entity in self.entities:
+            if self.tiles[entity.get_tile_position_x()][entity.get_tile_position_y()].visible:
+                screen.blit(self.entity_sprites[entity.get_sprite()], (entity.x, entity.y))
+
     
-    def generate_floor(self, max_rooms: int, min_room_size: int, max_room_size: int, player: Player):
+    def generate_floor(self, max_rooms: int, min_room_size: int, max_room_size: int, max_monsters: int, player: Player):
 
         rooms: list[Room] = list()
 
@@ -124,11 +137,13 @@ class Map:
                         self._generate_vertical_tunnel(previous_center[1], center[1], previous_center[0])
                         self._generate_horizontal_tunnel(previous_center[0], center[0], center[1])
                 
+                self.spawn_monsters(new_room, max_monsters)
+
                 rooms.append(new_room)
     
     def _generate_room(self, room: Room):
-        for x in range(room.DL_TOP + 1, room.DR_TOP):
-            for y in range(room.UL_TOP + 1, room.UR_TOP):
+        for x in range(room.x1 + 1, room.x2):
+            for y in range(room.y1 + 1, room.y2):
                 self.tiles[x][y] = Floor(x, y)
     
     def _generate_horizontal_tunnel(self, x1: int, x2: int, y: int):
@@ -142,3 +157,13 @@ class Map:
         max_y = max(y1, y2)
         for y in range(min_y, max_y + 1):
             self.tiles[x][y] = Floor(x, y)
+    
+    def spawn_monsters(self, room: Room, max_monsters: int):
+        number_of_monsters = random.randint(0, max_monsters)
+
+        for i in range(number_of_monsters):
+            x = random.randint(room.x1 + 1, room.x2 - 1)
+            y = random.randint(room.y1 + 1, room.y2 - 1)
+
+            slime = Slime(x * TILESIZE, y * TILESIZE)
+            self.entities.append(slime)
