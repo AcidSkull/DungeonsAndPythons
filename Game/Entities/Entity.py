@@ -1,5 +1,4 @@
 from settings import *
-import pygame
 
 class Entity():
     def __init__(self, x: int, y: int, name: str):

@@ -1,7 +1,7 @@
 from MapObjects.Tiles import *
 from MapObjects.Room import Room
 from Entities.Player import Player
-from Entities.Slime import Slime
+from Mechanics.EntityManager import EntityManager
 from settings import *
 import pygame, random
 
@@ -9,6 +9,7 @@ class Map:
     def __init__(self, width: int, height: int, entities: list):
         self.width = width
         self.height = height
+        self.entity_manager = EntityManager()
         self.entities = entities
         self.tiles = self.clear_map()
         self.visible = [[False for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
@@ -165,5 +166,6 @@ class Map:
             x = random.randint(room.x1 + 1, room.x2 - 1)
             y = random.randint(room.y1 + 1, room.y2 - 1)
 
-            slime = Slime(x * TILESIZE, y * TILESIZE)
-            self.entities.append(slime)
+            entity = self.entity_manager.spawn("Slime", x * TILESIZE, y * TILESIZE)
+            if entity is not None:
+                self.entities.append(entity)
