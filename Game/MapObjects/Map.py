@@ -2,17 +2,19 @@ from MapObjects.Tiles import *
 from MapObjects.Room import Room
 from Entities.Player import Player
 from Mechanics.EntityManager import EntityManager
+from Mechanics.Camera import Camera
 from settings import *
 import pygame, random
 
 class Map:
-    def __init__(self, width: int, height: int, entities: list):
+    def __init__(self, width: int, height: int, entities: list, camera: Camera):
         self.width = width
         self.height = height
         self.entity_manager = EntityManager()
         self.entities = entities
         self.tiles = [[Wall(x, y) for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
         self.entities_pos = [[None for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
+        self.camera = camera
 
         self.tile_png = {
             "Floor" : pygame.image.load(".\\Assets\\Tiles\\Floor.png"),
@@ -100,11 +102,11 @@ class Map:
         for row in self.tiles:
             for tile in row:
                 if tile is not None:
-                    screen.blit(self.tile_png[tile.get_texture()], (tile.x, tile.y))
+                    screen.blit(self.tile_png[tile.get_texture()], (tile.x - self.camera.position[0], tile.y - self.camera.position[1], tile.x, tile.y))
         
         for entity in self.entities:
             if self.tiles[entity.get_tile_position_x()][entity.get_tile_position_y()].visible:
-                screen.blit(self.entity_sprites[entity.get_sprite()], (entity.x, entity.y))
+                screen.blit(self.entity_sprites[entity.get_sprite()], (entity.x - self.camera.position[0], entity.y - self.camera.position[1], entity.x, entity.y))
 
     
     def generate_floor(self, max_rooms: int, min_room_size: int, max_room_size: int, max_monsters: int, player: Player):
@@ -132,6 +134,8 @@ class Map:
                 if len(rooms) == 0:
                     player.x = center[0]*TILESIZE
                     player.y = center[1]*TILESIZE
+
+                    self.camera.follow(player.x - (WIDTH // 2) ,  player.y - (HEIGHT // 2))
                 else:
                     previous_center = rooms[-1].get_center()
 

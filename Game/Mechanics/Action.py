@@ -1,5 +1,6 @@
 from Entities.Entity import Entity
 from MapObjects.Map import Map
+from Mechanics.Camera import Camera
 from settings import *
 
 class Action():
@@ -12,7 +13,7 @@ class Movement(Action):
         self.dx = dx
         self.dy = dy
     
-    def perform(self, entity: Entity, map: Map):
+    def perform(self, entity: Entity, map: Map, camera: Camera):
         dest_x = entity.x + self.dx
         dest_y = entity.y + self.dy
 
@@ -20,3 +21,4 @@ class Movement(Action):
             return
 
         entity.move(self.dx, self.dy)
+        camera.follow(self.dx, self.dy)

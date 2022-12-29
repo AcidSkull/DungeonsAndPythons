@@ -1,6 +1,7 @@
 from Entities.Player import Player
 from MapObjects.Map import Map
 from Mechanics.Action import *
+from Mechanics.Camera import Camera
 from settings import *
 import pygame
 
@@ -14,7 +15,8 @@ class Engine:
         self.running = True
         self.player = Player(self.width // 2 , self.height //2)
         self.entities = [self.player]
-        self.map = Map(MAP_WIDTH, MAP_HEIGHT, self.entities)
+        self.camera = Camera()
+        self.map = Map(MAP_WIDTH, MAP_HEIGHT, self.entities, self.camera)
     
     def render(self):
         self.map.update_fov(self.player, 3)
@@ -52,7 +54,7 @@ class Engine:
         while self.running:
             action = self.handle_input()
             if isinstance(action, Movement):
-                action.perform(self.player, self.map)
+                action.perform(self.player, self.map, self.camera)
 
             self.screen.fill([255,255,255])
             self.render()
