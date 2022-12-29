@@ -11,8 +11,8 @@ class Map:
         self.height = height
         self.entity_manager = EntityManager()
         self.entities = entities
-        self.tiles = self.clear_map()
-        self.visible = [[False for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
+        self.tiles = [[Wall(x, y) for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
+        self.entities_pos = [[None for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
 
         self.tile_png = {
             "Floor" : pygame.image.load(".\\Assets\\Tiles\\Floor.png"),
@@ -25,10 +25,14 @@ class Map:
             "Slime" : pygame.image.load(".\\Assets\\Entities\\Slime.png"),
         }
     
-    def clear_map(self) -> list():
-        return [[Wall(x, y) for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
+    def clear_map(self):
+        for x in range(MAP_WIDTH):
+            for y in range(MAP_HEIGHT):
+                self.tiles[x][y] = Wall(x, y)
+                self.entities_pos[x][y] = False
     
     def can_walk(self, x: int, y: int) -> bool:
+        if self.entities_pos[x][y] is not None: return False
         return not self.tiles[x][y].blocked
     
     def update_fov(self, player: Player, radius: int):
@@ -169,3 +173,4 @@ class Map:
             entity = self.entity_manager.spawn("Slime", x * TILESIZE, y * TILESIZE)
             if entity is not None:
                 self.entities.append(entity)
+                self.entities_pos[entity.get_tile_position_x()][entity.get_tile_position_y()] = entity
