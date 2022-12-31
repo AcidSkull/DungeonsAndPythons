@@ -56,7 +56,7 @@ class Engine:
             if isinstance(action, Movement):
                 action.perform(self.player, self.map, self.camera)
 
-            self.screen.fill([255,255,255])
+            self.screen.fill([0,0,0])
             self.render()
 
             pygame.display.flip()

@@ -136,6 +136,7 @@ class Map:
                     player.y = center[1]*TILESIZE
 
                     self.camera.follow(player.x - (WIDTH // 2) ,  player.y - (HEIGHT // 2))
+                    self.entities_pos[center[0]][center[1]] = player
                 else:
                     previous_center = rooms[-1].get_center()
 
@@ -173,6 +174,10 @@ class Map:
         for i in range(number_of_monsters):
             x = random.randint(room.x1 + 1, room.x2 - 1)
             y = random.randint(room.y1 + 1, room.y2 - 1)
+
+            while not self.can_walk(x, y):
+                x = random.randint(room.x1 + 1, room.x2 - 1)
+                y = random.randint(room.y1 + 1, room.y2 - 1)
 
             entity = self.entity_manager.spawn("Slime", x * TILESIZE, y * TILESIZE)
             if entity is not None:
