@@ -13,14 +13,19 @@ class Engine:
         self.height = HEIGHT
         self.screen = pygame.display.set_mode([self.width, self.height], pygame.FULLSCREEN)
         self.running = True
-        self.player = Player(self.width // 2 , self.height //2)
-        self.entities = [self.player]
         self.camera = Camera()
+        self.player = Player(self.width // 2 , self.height // 2, self.camera)
+        self.entities = [self.player]
         self.map = Map(MAP_WIDTH, MAP_HEIGHT, self.entities, self.camera)
     
     def render(self):
         self.map.update_fov(self.player, 3)
         self.map.render(self.screen)
+    
+    def handle_enemy_turns(self):
+        for entity in self.entities:
+            if entity == self.player: continue
+            print(f'{entity.name} is haeding towards you!')
     
     def handle_input(self):
         for event in pygame.event.get():
@@ -33,13 +38,13 @@ class Engine:
                 self.running = False
 
             if keys[pygame.K_RIGHT]:
-                return Movement(TILESIZE, 0)
+                return DecideWhatNextAction(1, 0)
             elif keys[pygame.K_LEFT]:
-                return Movement(-TILESIZE, 0)
+                return DecideWhatNextAction(-1, 0)
             elif keys[pygame.K_UP]:
-                return Movement(0, -TILESIZE)
+                return DecideWhatNextAction(0, -1)
             elif keys[pygame.K_DOWN]:
-                return Movement(0, TILESIZE)
+                return DecideWhatNextAction(0, 1)
 
     def move_camera(self, dx: int, dy: int):
         for row in self.map.tiles:
@@ -53,8 +58,9 @@ class Engine:
 
         while self.running:
             action = self.handle_input()
-            if isinstance(action, Movement):
-                action.perform(self.player, self.map, self.camera)
+            if isinstance(action, DecideWhatNextAction):
+                action.perform(self.player, self.map)
+                self.handle_enemy_turns()
 
             self.screen.fill([0,0,0])
             self.render()

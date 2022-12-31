@@ -11,6 +11,7 @@ class Entity():
     def move(self, dx: int, dy: int):
         self.x += dx
         self.y += dy
+        self.camera.follow(dx, dy)
 
     def get_coordinates(self): return (self.x, self.y)
     def get_tile_coordinates(self): return (self.x // TILESIZE, self.y // TILESIZE)    
