@@ -4,50 +4,62 @@ from Mechanics.Camera import Camera
 from settings import *
 
 class Action():
-    def perform(self, entity: Entity):
+    def __init__(self, entity: Entity):
+        self.entity = entity
+
+    def perform(self):
         raise NotImplementedError()
 
+class EscapeAction(Action):
+    def __init__(self):
+        pass
+
+    def perform(self):
+        return False
+
 class Movement(Action):
-    def __init__(self, dx: int, dy: int):
-        super().__init__()
+    def __init__(self, dx: int, dy: int, entity: Entity):
+        super().__init__(entity)
         self.dx = dx
         self.dy = dy
     
-    def perform(self, entity: Entity, map: Map):
-        map.entities_pos[entity.get_tile_position_x()][entity.get_tile_position_y()] = None
+    def perform(self, map: Map):
+        map.entities_pos[self.entity.get_tile_position_x()][self.entity.get_tile_position_y()] = None
 
-        dest_x = entity.get_tile_position_x() + self.dx
-        dest_y = entity.get_tile_position_y() + self.dy
+        dest_x = self.entity.get_tile_position_x() + self.dx
+        dest_y = self.entity.get_tile_position_y() + self.dy
 
         if not map.can_walk(dest_x , dest_y):
             return
 
-        entity.move(self.dx * TILESIZE, self.dy * TILESIZE)
-        map.entities_pos[entity.get_tile_position_x()][entity.get_tile_position_y()] = entity
+        self.entity.move(self.dx * TILESIZE, self.dy * TILESIZE)
+        map.entities_pos[self.entity.get_tile_position_x()][self.entity.get_tile_position_y()] = self.entity
 
 class MeleeAction(Action):
-    def __init__(self, dx: int, dy: int):
+    def __init__(self, dx: int, dy: int, entity: Entity):
+        super().__init__(entity)
         self.dx = dx
         self.dy = dy
     
-    def perform(self, entity: Entity, map: Map):
-        dest_x = entity.get_tile_position_x() + self.dx
-        dest_y = entity.get_tile_position_y() + self.dy
+    def perform(self, map: Map):
+        dest_x = self.entity.get_tile_position_x() + self.dx
+        dest_y = self.entity.get_tile_position_y() + self.dy
         target = map.entities_pos[dest_x][dest_y]
 
         if target is not None:
             print(f"You punched {target.name}")
 
 class DecideWhatNextAction(Action):
-    def __init__(self, dx: int, dy: int):
+    def __init__(self, dx: int, dy: int, entity: Entity):
+        super().__init__(entity)
         self.dx = dx
         self.dy = dy
 
-    def perform(self, entity: Entity, map: Map):
-        dest_x = entity.get_tile_position_x() + self.dx
-        dest_y = entity.get_tile_position_y() + self.dy
+    def perform(self, map: Map):
+        dest_x = self.entity.get_tile_position_x() + self.dx
+        dest_y = self.entity.get_tile_position_y() + self.dy
 
         if map.entities_pos[dest_x][dest_y] is None:
-            return Movement(self.dx, self.dy).perform(entity, map)
+            return Movement(self.dx, self.dy, self.entity).perform(map)
         else:
-            return MeleeAction(self.dx, self.dy).perform(entity, map)
+            return MeleeAction(self.dx, self.dy, self.entity).perform(map)

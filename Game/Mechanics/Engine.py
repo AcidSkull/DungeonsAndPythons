@@ -2,6 +2,7 @@ from Entities.Player import Player
 from MapObjects.Map import Map
 from Mechanics.Action import *
 from Mechanics.Camera import Camera
+from Mechanics.EventHandler import EventHandler
 from settings import *
 import pygame
 
@@ -16,6 +17,7 @@ class Engine:
         self.camera = Camera()
         self.player = Player(self.width // 2 , self.height // 2, self.camera)
         self.entities = [self.player]
+        self.event_handler = EventHandler(self.player)
         self.map = Map(MAP_WIDTH, MAP_HEIGHT, self.entities, self.camera)
     
     def render(self):
@@ -26,40 +28,18 @@ class Engine:
         for entity in self.entities:
             if entity == self.player: continue
             print(f'{entity.name} is haeding towards you!')
-    
-    def handle_input(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
-            
-            keys = pygame.key.get_pressed()
-
-            if keys[pygame.K_ESCAPE]:
-                self.running = False
-
-            if keys[pygame.K_RIGHT]:
-                return DecideWhatNextAction(1, 0)
-            elif keys[pygame.K_LEFT]:
-                return DecideWhatNextAction(-1, 0)
-            elif keys[pygame.K_UP]:
-                return DecideWhatNextAction(0, -1)
-            elif keys[pygame.K_DOWN]:
-                return DecideWhatNextAction(0, 1)
-
-    def move_camera(self, dx: int, dy: int):
-        for row in self.map.tiles:
-            for tile in row:
-                if tile is not None:
-                    tile.x += dx
-                    tile.y += dy
 
     def start(self):
         self.map.generate_floor(20, 3, 6, 2, self.player)
 
         while self.running:
-            action = self.handle_input()
+            action = self.event_handler.handle_events()
+
+            if isinstance(action, EscapeAction):
+                self.running = action.perform()
+
             if isinstance(action, DecideWhatNextAction):
-                action.perform(self.player, self.map)
+                action.perform(self.map)
                 self.handle_enemy_turns()
 
             self.screen.fill([0,0,0])
