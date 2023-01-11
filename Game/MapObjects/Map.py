@@ -20,6 +20,7 @@ class Map:
             "Floor" : pygame.image.load(".\\Assets\\Tiles\\Floor.png"),
             "Floor_explored": pygame.image.load(".\\Assets\\Tiles\\Floor_explored.png"),
             "Wall" : pygame.image.load(".\\Assets\\Tiles\\Wall.png"),
+            "Stairs": pygame.image.load(".\\Assets\\Tiles\\Stairs.png"),
         }
 
         self.entity_sprites = {
@@ -146,10 +147,13 @@ class Map:
                     else:
                         self._generate_vertical_tunnel(previous_center[1], center[1], previous_center[0])
                         self._generate_horizontal_tunnel(previous_center[0], center[0], center[1])
-                
+                    
                 self.spawn_monsters(new_room, max_monsters)
 
                 rooms.append(new_room)
+            
+            staris = rooms[-1].get_center()
+            self.tiles[staris[0]][staris[1]] = Stairs(staris[0], staris[1])
     
     def _generate_room(self, room: Room):
         for x in range(room.x1 + 1, room.x2):

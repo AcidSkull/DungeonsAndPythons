@@ -29,3 +29,15 @@ class Wall(Tile):
     
     def get_texture(self):
         return "Wall"
+
+class Stairs(Tile):
+    def __init__(self, x: int, y: int):
+        super().__init__(x, y, False)
+    
+    def get_texture(self):
+        if self.visible:
+            return "Stairs"
+        elif self.explored:
+            return "Floor_explored"
+        else:
+            return "Wall"
