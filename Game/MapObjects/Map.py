@@ -8,10 +8,12 @@ import pygame, random
 
 class Map:
     def __init__(self, width: int, height: int, entities: list, camera: Camera):
+        self.level = 1
         self.width = width
         self.height = height
         self.entity_manager = EntityManager()
         self.entities = entities
+        self.player = entities[0]
         self.tiles = [[Wall(x, y) for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
         self.entities_pos = [[None for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
         self.camera = camera
@@ -32,10 +34,14 @@ class Map:
         for x in range(MAP_WIDTH):
             for y in range(MAP_HEIGHT):
                 self.tiles[x][y] = Wall(x, y)
-                self.entities_pos[x][y] = False
+                self.entities_pos[x][y] = None
     
     def can_walk(self, x: int, y: int) -> bool:
         if self.entities_pos[x][y] is not None: return False
+
+        if self.tiles[x][y].walk_in_event:
+            self.tiles[x][y].walk_in_event_perform(self)
+
         return not self.tiles[x][y].blocked
     
     def update_fov(self, player: Player, radius: int):
@@ -110,8 +116,7 @@ class Map:
                 screen.blit(self.entity_sprites[entity.get_sprite()], (entity.x - self.camera.position[0], entity.y - self.camera.position[1], entity.x, entity.y))
 
     
-    def generate_floor(self, max_rooms: int, min_room_size: int, max_room_size: int, max_monsters: int, player: Player):
-
+    def generate_floor(self, max_rooms: int, min_room_size: int, max_room_size: int, max_monsters: int):
         rooms: list[Room] = list()
 
         for room in range(max_rooms):
@@ -133,11 +138,11 @@ class Map:
 
                 center = new_room.get_center()
                 if len(rooms) == 0:
-                    player.x = center[0]*TILESIZE
-                    player.y = center[1]*TILESIZE
+                    self.player.x = center[0]*TILESIZE
+                    self.player.y = center[1]*TILESIZE
 
-                    self.camera.follow(player.x - (WIDTH // 2) ,  player.y - (HEIGHT // 2))
-                    self.entities_pos[center[0]][center[1]] = player
+                    self.camera.follow(self.player.x - (WIDTH // 2) ,  self.player.y - (HEIGHT // 2))
+                    self.entities_pos[center[0]][center[1]] = self.player
                 else:
                     previous_center = rooms[-1].get_center()
 
@@ -187,3 +192,7 @@ class Map:
             if entity is not None:
                 self.entities.append(entity)
                 self.entities_pos[entity.get_tile_position_x()][entity.get_tile_position_y()] = entity
+    
+    def enter_new_floor(self):
+        self.clear_map()
+        self.generate_floor(20, 3, 6, 2)

@@ -30,7 +30,7 @@ class Engine:
             print(f'{entity.name} is haeding towards you!')
 
     def start(self):
-        self.map.generate_floor(20, 3, 6, 2, self.player)
+        self.map.generate_floor(20, 3, 6, 2)
 
         while self.running:
             action = self.event_handler.handle_events()
