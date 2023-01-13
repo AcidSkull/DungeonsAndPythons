@@ -21,7 +21,7 @@ class Engine:
         self.map = Map(MAP_WIDTH, MAP_HEIGHT, self.entities, self.camera)
     
     def render(self):
-        self.map.update_fov(self.player, 3)
+        self.map.update_fov(self.player, 4)
         self.map.render(self.screen)
     
     def handle_enemy_turns(self):
