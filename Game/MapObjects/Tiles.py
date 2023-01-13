@@ -48,4 +48,4 @@ class Stairs(Tile):
             return "Wall"
     
     def walk_in_event_perform(self, map):
-        map.clear_map()
+        map.enter_new_floor()

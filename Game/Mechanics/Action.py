@@ -1,6 +1,5 @@
 from Entities.Entity import Entity
 from MapObjects.Map import Map
-from Mechanics.Camera import Camera
 from settings import *
 
 class Action():
@@ -24,14 +23,13 @@ class Movement(Action):
         self.dy = dy
     
     def perform(self, map: Map):
-        map.entities_pos[self.entity.get_tile_position_x()][self.entity.get_tile_position_y()] = None
-
         dest_x = self.entity.get_tile_position_x() + self.dx
         dest_y = self.entity.get_tile_position_y() + self.dy
 
         if not map.can_walk(dest_x , dest_y):
             return
 
+        map.entities_pos[self.entity.get_tile_position_x()][self.entity.get_tile_position_y()] = None
         self.entity.move(self.dx * TILESIZE, self.dy * TILESIZE)
         map.entities_pos[self.entity.get_tile_position_x()][self.entity.get_tile_position_y()] = self.entity
 

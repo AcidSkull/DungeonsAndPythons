@@ -34,7 +34,10 @@ class Map:
         for x in range(MAP_WIDTH):
             for y in range(MAP_HEIGHT):
                 self.tiles[x][y] = Wall(x, y)
+                # if not isinstance(self.entities_pos[x][y], Player):
                 self.entities_pos[x][y] = None
+        
+        self.entities = [self.entities[0]]
     
     def can_walk(self, x: int, y: int) -> bool:
         if self.entities_pos[x][y] is not None: return False
@@ -153,12 +156,13 @@ class Map:
                         self._generate_vertical_tunnel(previous_center[1], center[1], previous_center[0])
                         self._generate_horizontal_tunnel(previous_center[0], center[0], center[1])
                     
-                self.spawn_monsters(new_room, max_monsters)
+                    if len(rooms) != max_rooms - 1:
+                        self.spawn_monsters(new_room, max_monsters)
 
                 rooms.append(new_room)
             
-            staris = rooms[-1].get_center()
-            self.tiles[staris[0]][staris[1]] = Stairs(staris[0], staris[1])
+            stairs = rooms[-1].get_center()
+            self.tiles[stairs[0]][stairs[1]] = Stairs(stairs[0], stairs[1])
     
     def _generate_room(self, room: Room):
         for x in range(room.x1 + 1, room.x2):
@@ -195,4 +199,6 @@ class Map:
     
     def enter_new_floor(self):
         self.clear_map()
-        self.generate_floor(20, 3, 6, 2)
+        self.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
+        self.camera.position = [0, 0]
+        self.camera.follow(self.player.x - (WIDTH // 2) ,  self.player.y - (HEIGHT // 2))

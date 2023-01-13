@@ -27,10 +27,10 @@ class Engine:
     def handle_enemy_turns(self):
         for entity in self.entities:
             if entity == self.player: continue
-            print(f'{entity.name} is haeding towards you!')
+            # print(f'{entity.name} is haeding towards you!')
 
     def start(self):
-        self.map.generate_floor(20, 3, 6, 2)
+        self.map.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
 
         while self.running:
             action = self.event_handler.handle_events()
