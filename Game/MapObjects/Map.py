@@ -40,7 +40,9 @@ class Map:
         self.entities = [self.entities[0]]
     
     def can_walk(self, x: int, y: int) -> bool:
-        if self.entities_pos[x][y] is not None: 
+        if self.entities_pos[x][y] is not None:
+            if self.entities_pos[x][y].is_alive == False:
+                return True
             return False
 
         if self.tiles[x][y].walk_in_event:
@@ -116,6 +118,10 @@ class Map:
                     screen.blit(self.tile_png[tile.get_texture()], (tile.x - self.camera.position[0], tile.y - self.camera.position[1], tile.x, tile.y))
         
         for entity in self.entities:
+            if entity.is_alive == False:
+                self.entities_pos[entity.get_tile_position_x()][entity.get_tile_position_y()] = None
+                self.entities.remove(entity)
+
             if self.tiles[entity.get_tile_position_x()][entity.get_tile_position_y()].visible:
                 screen.blit(self.entity_sprites[entity.get_sprite()], (entity.x - self.camera.position[0], entity.y - self.camera.position[1], entity.x, entity.y))
 

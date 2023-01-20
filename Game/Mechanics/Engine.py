@@ -1,8 +1,8 @@
 from Entities.Player import Player
-from MapObjects.Map import Map
-from Mechanics.Action import *
 from Mechanics.Camera import Camera
 from Mechanics.EventHandler import EventHandler
+from MapObjects.Map import Map
+from Mechanics.Action import *
 from settings import *
 import pygame
 
