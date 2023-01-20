@@ -1,9 +1,7 @@
-from Mechanics.Action import Action
-from EntityComponents.Component import Component
 from typing import List, Tuple
-import numpy as np
 
-class BaseAI(Action, Component):
+class BaseAI():
+
     def perform(self):
         raise NotImplementedError()
     

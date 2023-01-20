@@ -1,6 +1,6 @@
-from Entities.Entity import Entity
-from MapObjects.Map import Map
 from settings import *
+from Entities.Entity import Entity
+from EntityComponents.Actor import Actor
 
 class Action():
     def __init__(self, entity: Entity):
@@ -22,7 +22,7 @@ class Movement(Action):
         self.dx = dx
         self.dy = dy
     
-    def perform(self, map: Map):
+    def perform(self, map):
         dest_x = self.entity.get_tile_position_x() + self.dx
         dest_y = self.entity.get_tile_position_y() + self.dy
 
@@ -34,18 +34,20 @@ class Movement(Action):
         map.entities_pos[self.entity.get_tile_position_x()][self.entity.get_tile_position_y()] = self.entity
 
 class MeleeAction(Action):
-    def __init__(self, dx: int, dy: int, entity: Entity):
+    def __init__(self, dx: int, dy: int, entity: Actor):
         super().__init__(entity)
         self.dx = dx
         self.dy = dy
     
-    def perform(self, map: Map):
+    def perform(self, map):
         dest_x = self.entity.get_tile_position_x() + self.dx
         dest_y = self.entity.get_tile_position_y() + self.dy
         target = map.entities_pos[dest_x][dest_y]
 
         if target is not None:
-            print(f"You punched {target.name}")
+            damage = self.entity.fighter.power
+            target.take_damage(damage)
+            print(f"You punched {target.name}({target.fighter.hp}) and deal {damage} dmg")
 
 class DecideWhatNextAction(Action):
     def __init__(self, dx: int, dy: int, entity: Entity):
@@ -53,7 +55,7 @@ class DecideWhatNextAction(Action):
         self.dx = dx
         self.dy = dy
 
-    def perform(self, map: Map):
+    def perform(self, map):
         dest_x = self.entity.get_tile_position_x() + self.dx
         dest_y = self.entity.get_tile_position_y() + self.dy
 

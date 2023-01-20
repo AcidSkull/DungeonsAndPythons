@@ -40,7 +40,8 @@ class Map:
         self.entities = [self.entities[0]]
     
     def can_walk(self, x: int, y: int) -> bool:
-        if self.entities_pos[x][y] is not None: return False
+        if self.entities_pos[x][y] is not None: 
+            return False
 
         if self.tiles[x][y].walk_in_event:
             self.tiles[x][y].walk_in_event_perform(self)
