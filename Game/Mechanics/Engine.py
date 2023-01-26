@@ -24,6 +24,12 @@ class Engine:
         self.map.update_fov(self.player, 4)
         self.map.render(self.screen)
     
+    def game_over(self):
+        font = pygame.font.Font(".\\Assets\\Fonts\\IMMORTAL.ttf", 32)
+        self.text = font.render("Game Over", True, (255, 0, 0))
+        self.text_rect = self.text.get_rect()
+        self.text_rect.center = (WIDTH // 2, HEIGHT // 2)
+    
     def handle_enemy_turns(self):
         for entity in self.entities:
             if entity == self.player: continue
@@ -36,6 +42,13 @@ class Engine:
             elif(entity.x < self.player.x): direction[0] = 1
             elif(entity.y > self.player.y): direction[1] = -1
             elif(entity.y < self.player.y): direction[1] = 1
+
+            if(self.map.can_walk(direction[0], 0, entity)):
+                if(entity.y > self.player.y): direction[1] = -1
+                elif(entity.y < self.player.y): direction[1] = 1
+            if(self.map.can_walk(0, direction[1], entity)):
+                if(entity.y > self.player.y): direction[0] = -1
+                elif(entity.y < self.player.y): direction[0] = 1
 
             action = DecideWhatNextAction(direction[0], direction[1], entity)
             action.perform(self.map)
@@ -57,17 +70,23 @@ class Engine:
         self.map.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
 
         while self.running:
-            action = self.event_handler.handle_events()
-
-            if isinstance(action, EscapeAction):
-                self.running = action.perform()
-
-            if isinstance(action, DecideWhatNextAction):
-                action.perform(self.map)
-                self.handle_enemy_turns()
-
             self.screen.fill([0,0,0])
-            self.render()
+
+            if(not self.player.is_alive):
+                self.game_over()
+                self.screen.blit(self.text, self.text_rect)
+            else:
+
+                action = self.event_handler.handle_events()
+
+                if isinstance(action, EscapeAction):
+                    self.running = action.perform()
+
+                if isinstance(action, DecideWhatNextAction):
+                    action.perform(self.map)
+                    self.handle_enemy_turns()
+
+                self.render()
 
             pygame.display.flip()
         pygame.quit()
