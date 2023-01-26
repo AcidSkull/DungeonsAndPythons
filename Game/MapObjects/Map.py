@@ -39,14 +39,14 @@ class Map:
         
         self.entities = [self.entities[0]]
     
-    def can_walk(self, x: int, y: int) -> bool:
+    def can_walk(self, x: int, y: int, entity: Entity) -> bool:
         if self.entities_pos[x][y] is not None:
             if self.entities_pos[x][y].is_alive == False:
                 return True
             return False
 
         if self.tiles[x][y].walk_in_event:
-            self.tiles[x][y].walk_in_event_perform(self)
+            self.tiles[x][y].walk_in_event_perform(self, entity)
 
         return not self.tiles[x][y].blocked
     
@@ -150,7 +150,7 @@ class Map:
                 if len(rooms) == 0:
                     self.player.x = center[0]*TILESIZE
                     self.player.y = center[1]*TILESIZE
-
+                    
                     self.camera.follow(self.player.x - (WIDTH // 2) ,  self.player.y - (HEIGHT // 2))
                     self.entities_pos[center[0]][center[1]] = self.player
                 else:
@@ -195,7 +195,7 @@ class Map:
             x = random.randint(room.x1 + 1, room.x2 - 1)
             y = random.randint(room.y1 + 1, room.y2 - 1)
 
-            while not self.can_walk(x, y):
+            while not self.can_walk(x, y, None):
                 x = random.randint(room.x1 + 1, room.x2 - 1)
                 y = random.randint(room.y1 + 1, room.y2 - 1)
 

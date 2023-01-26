@@ -1,3 +1,4 @@
+from Entities.Entity import Entity
 from settings import *
 
 class Tile: 
@@ -12,7 +13,7 @@ class Tile:
     def get_texture(self) -> str:
         raise NotImplementedError()
     
-    def walk_in_event(self, map):
+    def walk_in_event(self, map, entity: Entity):
         raise NotImplementedError()
 
 class Floor(Tile):
@@ -51,5 +52,6 @@ class Stairs(Tile):
         else:
             return "Wall"
     
-    def walk_in_event_perform(self, map):
-        map.enter_new_floor()
+    def walk_in_event_perform(self, map, entity: Entity):
+        if(entity.name == "Player"):
+            map.enter_new_floor()

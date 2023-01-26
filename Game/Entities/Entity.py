@@ -5,13 +5,13 @@ class Entity():
         self.x = x
         self.y = y
         self.name = name
+        self.enemy_group = 0
     
     def get_sprite(self): return self.name
     
     def move(self, dx: int, dy: int):
         self.x += dx
         self.y += dy
-        self.camera.follow(dx, dy)
 
     def get_coordinates(self): return (self.x, self.y)
     def get_tile_coordinates(self): return (self.x // TILESIZE, self.y // TILESIZE)    

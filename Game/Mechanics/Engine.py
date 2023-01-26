@@ -27,6 +27,9 @@ class Engine:
     def handle_enemy_turns(self):
         for entity in self.entities:
             if entity == self.player: continue
+            action = DecideWhatNextAction(1, 0, entity)
+            action.perform(self.map)
+            # print(f'{self.player.x},{self.player.y} {entity}')
             # print(f'{entity.name} is haeding towards you!')
 
     def start(self):
