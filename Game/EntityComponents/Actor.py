@@ -9,8 +9,10 @@ class Actor(Entity):
         self.AI: Optional[BaseAI] = AI
         self.fighter = fighter
         self.is_alive = True
+        self.stunned = False
     
     def take_damage(self, damage: int):
+        self.stunned = True
         self.fighter.hp -= damage
         if(self.fighter.hp == 0): self.die()
     

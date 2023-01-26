@@ -27,8 +27,29 @@ class Engine:
     def handle_enemy_turns(self):
         for entity in self.entities:
             if entity == self.player: continue
-            action = DecideWhatNextAction(1, 0, entity)
+            if entity.stunned:
+                entity.stunned = False
+                continue
+
+            direction = [0, 0]
+            if(entity.x > self.player.x): direction[0] = -1
+            elif(entity.x < self.player.x): direction[0] = 1
+            elif(entity.y > self.player.y): direction[1] = -1
+            elif(entity.y < self.player.y): direction[1] = 1
+
+            action = DecideWhatNextAction(direction[0], direction[1], entity)
             action.perform(self.map)
+
+            # path = entity.AI.get_path_to(entity.get_tile_position_x(), entity.get_tile_position_y(), self.player.get_tile_position_x(), self.player.get_tile_position_y(), self.map.tiles)
+
+            # print(path)
+            # if path is not None:
+            #     q = path.get()
+            #     print(q)
+                # direction = (entity.get_tile_position_x() - q[2], entity.get_tile_position_y() - q[3])
+
+                # action = DecideWhatNextAction(direction[0], direction[1], entity)
+                # action.perform(self.map)
             # print(f'{self.player.x},{self.player.y} {entity}')
             # print(f'{entity.name} is haeding towards you!')
 
