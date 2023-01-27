@@ -25,3 +25,14 @@ class EventHandler:
                 return DecideWhatNextAction(0, -1, self.player)
             elif keys[pygame.K_DOWN]:
                 return DecideWhatNextAction(0, 1, self.player)
+    
+    def handle_death_screen(self):
+        for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
+
+            if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
+                return EscapeAction()
+            
+            if keys[pygame.K_KP_ENTER]:
+                return ResetAction()
+                 

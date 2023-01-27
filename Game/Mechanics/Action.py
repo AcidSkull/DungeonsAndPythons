@@ -16,6 +16,13 @@ class EscapeAction(Action):
     def perform(self):
         return False
 
+class ResetAction(Action):
+    def __init__(self):
+        pass
+
+    def perform(self, engine):
+        engine.init()
+
 class Movement(Action):
     def __init__(self, dx: int, dy: int, entity: Entity):
         super().__init__(entity)

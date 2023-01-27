@@ -65,9 +65,12 @@ class Engine:
                 # action.perform(self.map)
             # print(f'{self.player.x},{self.player.y} {entity}')
             # print(f'{entity.name} is haeding towards you!')
+    
+    def init(self):
+        self.map.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
 
     def start(self):
-        self.map.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
+        self.init()
 
         while self.running:
             self.screen.fill([0,0,0])
@@ -75,6 +78,9 @@ class Engine:
             if(not self.player.is_alive):
                 self.game_over()
                 self.screen.blit(self.text, self.text_rect)
+                action = self.event_handler.handle_death_screen()
+                if action is not None:
+                    action.perform()
             else:
 
                 action = self.event_handler.handle_events()
