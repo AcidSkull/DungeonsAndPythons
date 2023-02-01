@@ -16,9 +16,9 @@ class Engine:
         self.map.update_fov(self.player, 4)
         self.map.render(self.screen)
     
-    def game_over(self):
+    def message_screen(self, string: str, color):
         font = pygame.font.Font(".\\Assets\\Fonts\\IMMORTAL.ttf", 32)
-        self.text = font.render("Game Over", True, (255, 0, 0))
+        self.text = font.render(string, True, color)
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (WIDTH // 2, HEIGHT // 2)
     
@@ -79,9 +79,15 @@ class Engine:
             action = None
 
             if(not self.player.is_alive):
-                self.game_over()
+                self.message_screen("You died", (255, 0, 0))
                 self.screen.blit(self.text, self.text_rect)
-                action = self.event_handler.handle_death_screen()
+                action = self.event_handler.handle_death_win_screen()
+                if isinstance(action, ResetAction):
+                    action.perform(self)
+            elif(self.player.win):
+                self.message_screen("Congratulations! You found the treasure", (0, 255, 0))
+                self.screen.blit(self.text, self.text_rect)
+                action = self.event_handler.handle_death_win_screen()
                 if isinstance(action, ResetAction):
                     action.perform(self)
             else:

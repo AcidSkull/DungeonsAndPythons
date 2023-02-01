@@ -55,3 +55,20 @@ class Stairs(Tile):
     def walk_in_event_perform(self, map, entity: Entity):
         if(entity.name == "Player"):
             map.enter_new_floor()
+    
+class Chest_with_gold(Tile):
+    def __init__(self, x: int, y: int):
+        super().__init__(x, y, False)
+        self.walk_in_event = True
+    
+    def get_texture(self) -> str:
+        if self.visible:
+            return "Chest_with_gold"
+        elif self.explored:
+            return "Floor_explored"
+        else:
+            return "Wall"
+    
+    def walk_in_event_perform(self, map, entity: Entity):
+        if(entity.name == "Player"):
+            map.finish()

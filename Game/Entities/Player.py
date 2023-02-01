@@ -9,6 +9,7 @@ class Player(Actor):
         self.camera = camera
         self.is_alive = True
         self.enemy_group = 1
+        self.win = False
     
     def move(self, dx: int, dy: int):
         self.camera.follow(dx, dy)

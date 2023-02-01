@@ -20,9 +20,10 @@ class Map:
 
         self.tile_png = {
             "Floor" : pygame.image.load(".\\Assets\\Tiles\\Floor.png"),
-            "Floor_explored": pygame.image.load(".\\Assets\\Tiles\\Floor_explored.png"),
+            "Floor_explored" : pygame.image.load(".\\Assets\\Tiles\\Floor_explored.png"),
             "Wall" : pygame.image.load(".\\Assets\\Tiles\\Wall.png"),
-            "Stairs": pygame.image.load(".\\Assets\\Tiles\\Stairs.png"),
+            "Stairs" : pygame.image.load(".\\Assets\\Tiles\\Stairs.png"),
+            "Chest_with_gold" : pygame.image.load(".\\Assets\\Tiles\\Chest_with_gold.png"),
         }
 
         self.entity_sprites = {
@@ -168,8 +169,11 @@ class Map:
 
                 rooms.append(new_room)
             
-            stairs = rooms[-1].get_center()
-            self.tiles[stairs[0]][stairs[1]] = Stairs(stairs[0], stairs[1])
+            tile = rooms[-1].get_center()
+            if(self.level == 5):
+                self.tiles[tile[0]][tile[1]] = Chest_with_gold(tile[0], tile[1])
+            else:
+                self.tiles[tile[0]][tile[1]] = Stairs(tile[0], tile[1])
     
     def _generate_room(self, room: Room):
         for x in range(room.x1 + 1, room.x2):
@@ -209,3 +213,6 @@ class Map:
         self.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
         self.camera.position = [0, 0]
         self.camera.follow(self.player.x - (WIDTH // 2) ,  self.player.y - (HEIGHT // 2))
+    
+    def finish(self):
+        self.player.win = True
