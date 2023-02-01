@@ -28,11 +28,14 @@ class EventHandler:
     
     def handle_death_screen(self):
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return EscapeAction()
+
             keys = pygame.key.get_pressed()
 
-            if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
+            if keys[pygame.K_ESCAPE]:
                 return EscapeAction()
             
-            if keys[pygame.K_KP_ENTER]:
+            if keys[pygame.K_r]:
                 return ResetAction()
                  

@@ -10,15 +10,7 @@ class Engine:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Dungeons&Pythons")
-        self.width = WIDTH
-        self.height = HEIGHT
-        self.screen = pygame.display.set_mode([self.width, self.height], pygame.FULLSCREEN)
-        self.running = True
-        self.camera = Camera()
-        self.player = Player(self.width // 2 , self.height // 2, self.camera)
-        self.entities = [self.player]
-        self.event_handler = EventHandler(self.player)
-        self.map = Map(MAP_WIDTH, MAP_HEIGHT, self.entities, self.camera)
+        self.init()
     
     def render(self):
         self.map.update_fov(self.player, 4)
@@ -67,6 +59,16 @@ class Engine:
             # print(f'{entity.name} is haeding towards you!')
     
     def init(self):
+        # self.player.is_alive = True
+        self.width = WIDTH
+        self.height = HEIGHT
+        self.screen = pygame.display.set_mode([self.width, self.height], pygame.FULLSCREEN)
+        self.running = True
+        self.camera = Camera()
+        self.player = Player(self.width // 2 , self.height // 2, self.camera)
+        self.entities = [self.player]
+        self.event_handler = EventHandler(self.player)
+        self.map = Map(MAP_WIDTH, MAP_HEIGHT, self.entities, self.camera)
         self.map.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
 
     def start(self):
@@ -74,25 +76,26 @@ class Engine:
 
         while self.running:
             self.screen.fill([0,0,0])
+            action = None
 
             if(not self.player.is_alive):
                 self.game_over()
                 self.screen.blit(self.text, self.text_rect)
                 action = self.event_handler.handle_death_screen()
-                if action is not None:
-                    action.perform()
+                if isinstance(action, ResetAction):
+                    action.perform(self)
             else:
 
                 action = self.event_handler.handle_events()
-
-                if isinstance(action, EscapeAction):
-                    self.running = action.perform()
 
                 if isinstance(action, DecideWhatNextAction):
                     action.perform(self.map)
                     self.handle_enemy_turns()
 
                 self.render()
+
+            if isinstance(action, EscapeAction):
+                self.running = action.perform()
 
             pygame.display.flip()
         pygame.quit()
