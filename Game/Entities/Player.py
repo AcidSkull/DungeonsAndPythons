@@ -4,7 +4,7 @@ from EntityComponents.Actor import Actor
 
 class Player(Actor):
     def __init__(self, x: int, y: int, camera: Camera):
-        super().__init__(x, y, "Player", None,Fighter(25, 5, 5))
+        super().__init__(x, y, "Player", None,Fighter(2555, 5, 555))
         self.visible = True
         self.camera = camera
         self.is_alive = True

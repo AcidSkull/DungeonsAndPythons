@@ -8,7 +8,7 @@ import pygame, random
 
 class Map:
     def __init__(self, width: int, height: int, entities: list, camera: Camera):
-        self.level = 1
+        self.level = 0
         self.width = width
         self.height = height
         self.entity_manager = EntityManager()
@@ -29,7 +29,19 @@ class Map:
         self.entity_sprites = {
             "Player" : pygame.image.load(".\\Assets\\Entities\\Knight.png"),
             "Slime" : pygame.image.load(".\\Assets\\Entities\\Slime.png"),
+            "Python" : pygame.image.load(".\\Assets\\Entities\\Python.png"),
+            "Skeleton" : pygame.image.load(".\\Assets\\Entities\\Skeleton.png"),
+            "Wraith" : pygame.image.load(".\\Assets\\Entities\\Wraith.png"),
+            "Snake_warrior" : pygame.image.load(".\\Assets\\Entities\\Snake_warrior.png"),
         }
+
+        self.monster_level = [
+            ["Python", "Slime"],
+            ["Slime", "Python", "Wraith"],
+            ["Wraith", "Slime"],
+            ["Skeleton", "Wraith", "Python"],
+            ["Snake_warrior", "Skeleton", "Wraith"],
+        ]
     
     def clear_map(self):
         for x in range(MAP_WIDTH):
@@ -170,7 +182,7 @@ class Map:
                 rooms.append(new_room)
             
             tile = rooms[-1].get_center()
-            if(self.level == 5):
+            if(self.level == 4):
                 self.tiles[tile[0]][tile[1]] = Chest_with_gold(tile[0], tile[1])
             else:
                 self.tiles[tile[0]][tile[1]] = Stairs(tile[0], tile[1])
@@ -203,7 +215,7 @@ class Map:
                 x = random.randint(room.x1 + 1, room.x2 - 1)
                 y = random.randint(room.y1 + 1, room.y2 - 1)
 
-            entity = self.entity_manager.spawn("Slime", x * TILESIZE, y * TILESIZE)
+            entity = self.entity_manager.spawn(self._chose_monster(), x * TILESIZE, y * TILESIZE)
             if entity is not None:
                 self.entities.append(entity)
                 self.entities_pos[entity.get_tile_position_x()][entity.get_tile_position_y()] = entity
@@ -213,6 +225,12 @@ class Map:
         self.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
         self.camera.position = [0, 0]
         self.camera.follow(self.player.x - (WIDTH // 2) ,  self.player.y - (HEIGHT // 2))
+        self.level += 1
     
     def finish(self):
         self.player.win = True
+    
+    def _chose_monster(self) -> str:
+        random_int = random.randint(0, len(self.monster_level[self.level]) - 1)
+        s = self.monster_level[self.level][random_int]
+        return s
