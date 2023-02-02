@@ -59,7 +59,6 @@ class Engine:
             # print(f'{entity.name} is haeding towards you!')
     
     def init(self):
-        # self.player.is_alive = True
         self.width = WIDTH
         self.height = HEIGHT
         self.screen = pygame.display.set_mode([self.width, self.height], pygame.FULLSCREEN)
@@ -75,6 +74,9 @@ class Engine:
         self.init()
 
         while self.running:
+            for e in self.entities:
+                print(e.name)
+            print("=======================")
             self.screen.fill([0,0,0])
             action = None
 

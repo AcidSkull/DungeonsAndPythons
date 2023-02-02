@@ -47,10 +47,10 @@ class Map:
         for x in range(MAP_WIDTH):
             for y in range(MAP_HEIGHT):
                 self.tiles[x][y] = Wall(x, y)
-                # if not isinstance(self.entities_pos[x][y], Player):
                 self.entities_pos[x][y] = None
         
-        self.entities = [self.entities[0]]
+        self.entities.clear()
+        self.entities.append(self.player)
     
     def can_walk(self, x: int, y: int, entity: Entity) -> bool:
         if self.entities_pos[x][y] is not None:
