@@ -222,10 +222,10 @@ class Map:
     
     def enter_new_floor(self):
         self.clear_map()
+        self.level += 1
         self.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
         self.camera.position = [0, 0]
         self.camera.follow(self.player.x - (WIDTH // 2) ,  self.player.y - (HEIGHT // 2))
-        self.level += 1
     
     def finish(self):
         self.player.win = True

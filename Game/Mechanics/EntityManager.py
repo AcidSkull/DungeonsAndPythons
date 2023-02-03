@@ -9,7 +9,7 @@ class EntityManager:
             "Slime" : Actor(0, 0, "Slime", BaseAI(), Fighter(4, 2, 2)),
             "Python" : Actor(0, 0, "Python", BaseAI(), Fighter(5, 1, 2)),
             "Skeleton" : Actor(0, 0, "Skeleton", BaseAI(), Fighter(12, 3, 3)),
-            "Wraith" : Actor(0, 0, "Wraith", BaseAI(), Fighter(11, 5, 3)),
+            "Wraith" : Actor(0, 0, "Wraith", BaseAI(), Fighter(11, 2, 3)),
             "Snake_warrior" : Actor(0, 0, "Snake_warrior", BaseAI(), Fighter(24, 4, 4)),
         }
     
