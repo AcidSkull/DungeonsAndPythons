@@ -15,10 +15,20 @@ Python 3.10.1
 ## 1.5 Biblioteki
 Pygame 2.1.2
 
-# 2. Historia
+# 2. Styl artystyczny
+Jest to gra 2D z widokiem z góry w grafice typu PixelArt. Gra nie posida dźwięków.
 
+# 3. Gameplay
+Gracz przemierza loch składający się z 5 losowo generowanych poziomów, żeby znaleźć skarb ukryty na końcu. Po drodze napotyka różne potwory próbujące go zatrzymać. Po śmierci gracz musi zacząć swoją podróż od początku.
 
-# 3. Styl artystyczny
-Jest to gra 2D z widokiem z góry w grafice typu PixelArt.
+# 4. Mechaniki
+## 4.1 Sterowanie
+    - a/w/s/d -> chodzenie i interakcja
+    - esc -> wyjście z gry
+    - r -> reset
 
-# 4. Gameplay
+## 4.2 Walka
+Gracz i potwory atakują gdy jedno z nich spróbuje wejść na to samo miejsce gdzie znajduję się inna istota. Zadawane obrażenia są dzielone przez obronnę danej istoty 
+
+## 4.3 Ruch
+Istoty w lochu poruszają się po siatcę.
