@@ -13,7 +13,7 @@ class Actor(Entity):
     
     def take_damage(self, damage: int):
         self.stunned = True
-        self.fighter.hp -= damage - self.fighter.defense
+        self.fighter.hp -= max(damage - self.fighter.defense, 1)
         if(self.fighter.hp == 0): self.die()
     
     def die(self):
