@@ -74,9 +74,6 @@ class Engine:
         self.init()
 
         while self.running:
-            for e in self.entities:
-                print(e.name)
-            print("=======================")
             self.screen.fill([0,0,0])
             action = None
 
