@@ -23,9 +23,9 @@ Gracz przemierza loch składający się z 5 losowo generowanych poziomów, żeby
 
 # 4. Mechaniki
 ## 4.1 Sterowanie
-    - a/w/s/d -> chodzenie i interakcja
-    - esc -> wyjście z gry
-    - r -> reset
+- a/w/s/d -> chodzenie i interakcja
+- esc -> wyjście z gry
+- r -> reset
 
 ## 4.2 Walka
 Gracz i potwory atakują gdy jedno z nich spróbuje wejść na to samo miejsce gdzie znajduję się inna istota. Zadawane obrażenia są dzielone przez obronnę danej istoty 
