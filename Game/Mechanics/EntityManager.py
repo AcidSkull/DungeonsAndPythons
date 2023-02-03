@@ -10,7 +10,7 @@ class EntityManager:
             "Python" : Actor(0, 0, "Python", BaseAI(), Fighter(5, 1, 2)),
             "Skeleton" : Actor(0, 0, "Skeleton", BaseAI(), Fighter(15, 3, 3)),
             "Wraith" : Actor(0, 0, "Wraith", BaseAI(), Fighter(15, 5, 3)),
-            "Snake_warrior" : Actor(0, 0, "Snake_warrior", BaseAI(), Fighter(20, 6, 4)),
+            "Snake_warrior" : Actor(0, 0, "Snake_warrior", BaseAI(), Fighter(20, 4, 4)),
         }
     
     def spawn(self, name: str, x: int, y: int):
