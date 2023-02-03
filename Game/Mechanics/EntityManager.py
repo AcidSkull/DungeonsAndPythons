@@ -6,11 +6,11 @@ import copy
 class EntityManager:
     def __init__(self):
         self.entities = {
-            "Slime" : Actor(0, 0, "Slime", BaseAI(), Fighter(8, 2, 2)),
+            "Slime" : Actor(0, 0, "Slime", BaseAI(), Fighter(4, 2, 2)),
             "Python" : Actor(0, 0, "Python", BaseAI(), Fighter(5, 1, 2)),
-            "Skeleton" : Actor(0, 0, "Skeleton", BaseAI(), Fighter(15, 3, 3)),
-            "Wraith" : Actor(0, 0, "Wraith", BaseAI(), Fighter(15, 5, 3)),
-            "Snake_warrior" : Actor(0, 0, "Snake_warrior", BaseAI(), Fighter(20, 4, 4)),
+            "Skeleton" : Actor(0, 0, "Skeleton", BaseAI(), Fighter(12, 3, 3)),
+            "Wraith" : Actor(0, 0, "Wraith", BaseAI(), Fighter(11, 5, 3)),
+            "Snake_warrior" : Actor(0, 0, "Snake_warrior", BaseAI(), Fighter(24, 4, 4)),
         }
     
     def spawn(self, name: str, x: int, y: int):
