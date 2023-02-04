@@ -1,4 +1,5 @@
 from Entities.Entity import Entity
+from Items.Item import Item
 from settings import *
 
 class Tile: 
@@ -19,18 +20,28 @@ class Tile:
 class Floor(Tile):
     def __init__(self, x: int, y: int):
         super().__init__(x, y, False)
-        self.has_item = False
         self.item = None
+        self.walk_in_event = True
+
+    def give_item(self, item: Item):
+        self.item = item
     
     def get_texture(self) -> str:
-        if self.has_item:
-            return "Item_on_floor"
-        elif self.visible:
+        if self.visible:
+            if self.item is not None:
+                return self.item.name
             return "Floor"
         elif self.explored:
             return "Floor_explored"
         else:
             return "Wall"
+    
+    def walk_in_event_perform(self, map, entity: Entity):
+        if entity is None: return
+
+        if entity.name == "Player" and self.item is not None:
+            self.item.use(entity)
+            self.item = None
 
 class Wall(Tile):
     def __init__(self, x: int, y: int):

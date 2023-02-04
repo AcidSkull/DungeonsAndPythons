@@ -2,6 +2,7 @@ from MapObjects.Tiles import *
 from MapObjects.Room import Room
 from Entities.Player import Player
 from Mechanics.EntityManager import EntityManager
+from Mechanics.ItemManager import ItemManager
 from Mechanics.Camera import Camera
 from settings import *
 import pygame, random
@@ -12,6 +13,7 @@ class Map:
         self.width = width
         self.height = height
         self.entity_manager = EntityManager()
+        self.item_manager = ItemManager()
         self.entities = entities
         self.player = entities[0]
         self.tiles = [[Wall(x, y) for y in range(MAP_HEIGHT)] for x in range(MAP_WIDTH)]
@@ -24,6 +26,9 @@ class Map:
             "Wall" : pygame.image.load(".\\Assets\\Tiles\\Wall.png"),
             "Stairs" : pygame.image.load(".\\Assets\\Tiles\\Stairs.png"),
             "Chest_with_gold" : pygame.image.load(".\\Assets\\Tiles\\Chest_with_gold.png"),
+            "Sword" : pygame.image.load(".\\Assets\\Items\\Sword.png"),
+            "Shield" : pygame.image.load(".\\Assets\\Items\\Shield.png"),
+            "HealthPotion" : pygame.image.load(".\\Assets\\Items\\HealthPotion.png"),
         }
 
         self.entity_sprites = {
@@ -37,12 +42,12 @@ class Map:
 
         self.monster_level = [
             ["Python", "Slime"],
-            ["Slime", "Python", "Wraith"],
-            ["Wraith", "Slime"],
-            ["Skeleton", "Wraith", "Python"],
-            ["Snake_warrior", "Skeleton", "Wraith"],
+            ["Slime", "Python", "Wraith", "Wraith"],
+            ["Wraith", "Wraith", "Wraith", "Slime"],
+            ["Skeleton", "Skeleton", "Wraith", "Python"],
+            ["Snake_warrior", "Skeleton", "Skeleton", "Wraith"],
         ]
-    
+
     def clear_map(self):
         for x in range(MAP_WIDTH):
             for y in range(MAP_HEIGHT):
@@ -175,6 +180,9 @@ class Map:
                     else:
                         self._generate_vertical_tunnel(previous_center[1], center[1], previous_center[0])
                         self._generate_horizontal_tunnel(previous_center[0], center[0], center[1])
+                    
+                    # if random.randint(0, 2) == 0:
+                    self.tiles[center[0]][center[1]].give_item(self.item_manager.random_spawn())
                     
                     if len(rooms) != max_rooms - 1:
                         self.spawn_monsters(new_room, max_monsters)
