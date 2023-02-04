@@ -4,6 +4,7 @@ from Entities.Player import Player
 from Mechanics.EntityManager import EntityManager
 from Mechanics.ItemManager import ItemManager
 from Mechanics.Camera import Camera
+from Items.Item import Sword
 from settings import *
 import pygame, random
 
@@ -181,9 +182,6 @@ class Map:
                         self._generate_vertical_tunnel(previous_center[1], center[1], previous_center[0])
                         self._generate_horizontal_tunnel(previous_center[0], center[0], center[1])
                     
-                    # if random.randint(0, 2) == 0:
-                    self.tiles[center[0]][center[1]].give_item(self.item_manager.random_spawn())
-                    
                     if len(rooms) != max_rooms - 1:
                         self.spawn_monsters(new_room, max_monsters)
 
@@ -199,6 +197,12 @@ class Map:
         for x in range(room.x1 + 1, room.x2):
             for y in range(room.y1 + 1, room.y2):
                 self.tiles[x][y] = Floor(x, y)
+        
+        if random.randint(0, 2) == 0:
+            x = random.randint(room.x1, room.x2)
+            y = random.randint(room.y1, room.y2)
+        
+            self.tiles[x][y].item = self.item_manager.random_spawn()
     
     def _generate_horizontal_tunnel(self, x1: int, x2: int, y: int):
         min_x = min(x1, x2)
