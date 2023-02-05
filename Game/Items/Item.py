@@ -13,7 +13,7 @@ class Sword(Item):
     
     def use(self, actor: Actor):
         if actor.name == "Player":
-            actor.fighter.power += 2
+            actor.fighter.power += 1 
 
 class Shield(Item):
     def __init__(self):
@@ -21,7 +21,7 @@ class Shield(Item):
     
     def use(self, actor: Actor):
         if actor.name == "Player":
-            actor.fighter.defense += 2
+            actor.fighter.defense += 1
 
 class HealthPotion(Item):
     def __init__(self):
@@ -29,4 +29,4 @@ class HealthPotion(Item):
     
     def use(self, actor: Actor):
         if actor.name == "Player":
-            actor.fighter.hp += 2
+            actor.fighter.hp += 5

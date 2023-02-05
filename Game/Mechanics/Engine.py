@@ -2,6 +2,7 @@ from Entities.Player import Player
 from Mechanics.Camera import Camera
 from Mechanics.EventHandler import EventHandler
 from MapObjects.Map import Map
+from Mechanics.UserInterface import UserInterface
 from Mechanics.Action import *
 from settings import *
 import pygame
@@ -15,6 +16,7 @@ class Engine:
     def render(self):
         self.map.update_fov(self.player, 4)
         self.map.render(self.screen)
+        self.UserInterface.render()
     
     def message_screen(self, string: str, color):
         font = pygame.font.Font(".\\Assets\\Fonts\\IMMORTAL.ttf", 32)
@@ -69,6 +71,7 @@ class Engine:
         self.event_handler = EventHandler(self.player)
         self.map = Map(MAP_WIDTH, MAP_HEIGHT, self.entities, self.camera)
         self.map.generate_floor(MAX_ROOMS, MIN_ROOM_SIZE, MAX_ROOM_SIZE, MAX_MONSTERS)
+        self.UserInterface = UserInterface(self.player, self.screen)
 
     def start(self):
         self.init()

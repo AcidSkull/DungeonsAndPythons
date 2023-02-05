@@ -198,7 +198,7 @@ class Map:
             for y in range(room.y1 + 1, room.y2):
                 self.tiles[x][y] = Floor(x, y)
         
-        if random.randint(0, 2) == 0:
+        if random.randint(0, 1) == 0:
             x = random.randint(room.x1, room.x2)
             y = random.randint(room.y1, room.y2)
         
